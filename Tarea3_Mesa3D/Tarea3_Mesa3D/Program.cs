@@ -11,7 +11,7 @@ namespace Tarea3_Mesa3D
     {
         static void Main(string[] args)
         {
-            using (Game gm = new Game(700,500))
+            using (Game gm = new Game(900,650))
             {
                 gm.Run(60);
             }

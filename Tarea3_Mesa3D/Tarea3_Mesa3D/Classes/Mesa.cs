@@ -1,207 +1,299 @@
 ﻿using System;
-using OpenTK;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using OpenTK.Graphics.OpenGL;
-using Tarea3_Mesa3D.Utils;
-using OpenTK.Graphics;
+using OpenTK;
+using System.Drawing;
 
 namespace Tarea3_Mesa3D.Classes
 {
     class Mesa : IFigura
     {
-        public PrimitiveType tipoFigura { get; set; }
-        public Vertex[] vertices { get; set; }
+        public float cx, cy, cz;
+        public Vector3 centro;
 
         public Mesa()
         {
-            tipoFigura = PrimitiveType.Quads;
-            init();
+            this.centro = new Vector3(5,5,-40);
+
+            float anchoX = 10;
+            float altoY  = 8;
+            float profZ  = 5;
+
+            this.cx = anchoX / 2;
+            this.cy = altoY  / 2;
+            this.cz = profZ  / 2;
         }
 
-        public Mesa(Vertex[] vertices, PrimitiveType tipoFigura)
+        public Mesa(Vector3 p, float anchoX, float altoY, float profZ)
         {
-            this.vertices = vertices;
-            this.tipoFigura = tipoFigura;
+            this.centro = p;
+
+            this.cx = anchoX / 2;
+            this.cy = altoY  / 2;
+            this.cz = profZ  / 2;
         }
-
-        public void init()
-        {
-            Vertex[] vertexs =
-            {
-                new Vertex(new Vector3(13.0f, 10.0f, -40.0f),  new Color4(1.0f, 1.5f, 0.5f, 1.0f)),
-                new Vertex(new Vector3(13.0f, 5.0f, -40.0f),   new Color4(1.0f, 1.5f, 0.5f, 1.0f)),
-                new Vertex(new Vector3(-13.0f, 5.0f, -40.0f),  new Color4(1.0f, 1.5f, 0.5f, 1.0f)),
-                new Vertex(new Vector3(-13.0f, 10.0f, -40.0f), new Color4(1.0f, 1.5f, 0.5f, 1.0f)),
-
-                 new Vertex(new Vector3(13.0f, 10.0f, -60.0f),  new Color4(1.0f, 1.5f, 0.5f,1.0f)),
-                 new Vertex(new Vector3(13.0f, 5.0f, -60.0f),   new Color4(1.0f, 1.5f, 0.5f,1.0f)),
-                 new Vertex(new Vector3(-13.0f, 5.0f, -60.0f),  new Color4(1.0f, 1.5f, 0.5f,1.0f)),
-                 new Vertex(new Vector3(-13.0f, 10.0f, -60.0f), new Color4(1.0f, 1.5f, 0.5f,1.0f)),
-
-                 new Vertex(new Vector3(-13.0f, 10.0f, -40.0f), new Color4(0.0f, 0.0f, 1.0f,1.0f)),
-                 new Vertex(new Vector3(-13.0f, 10.0f, -60.0f), new Color4(0.0f, 0.0f, 1.0f,1.0f)),
-                 new Vertex(new Vector3(-13.0f, 5.0f, -60.0f),  new Color4(0.0f, 0.0f, 1.0f,1.0f)),
-                 new Vertex(new Vector3(-13.0f, 5.0f, -40.0f),  new Color4(0.0f, 0.0f, 1.0f,1.0f)),
-
-                 new Vertex(new Vector3(13.0f, 10.0f, -40.0f), new Color4(1.0f, 0.0f, 1.0f,1.0f)),
-                 new Vertex(new Vector3(13.0f, 10.0f, -60.0f), new Color4(1.0f, 0.0f, 1.0f,1.0f)),
-                 new Vertex(new Vector3(13.0f, 5.0f, -60.0f),  new Color4(1.0f, 0.0f, 1.0f,1.0f)),
-                 new Vertex(new Vector3(13.0f, 5.0f, -40.0f),  new Color4(1.0f, 0.0f, 1.0f,1.0f)),
-
-                 new Vertex(new Vector3(13.0f, 10.0f, -40.0f), new Color4(1.0f, 1.5f, 0.5f,1.0f)),
-                 new Vertex(new Vector3(13.0f, 10.0f, -60.0f), new Color4(1.0f, 1.5f, 0.5f,1.0f)),
-                 new Vertex(new Vector3(-13.0f, 10.0f, -60.0f),new Color4(1.0f, 1.5f, 0.5f,1.0f)),
-                 new Vertex(new Vector3(-13.0f, 10.0f, -40.0f),new Color4(1.0f, 1.5f, 0.5f,1.0f)),
-
-                 new Vertex(new Vector3(13.0f, 5.0f, -40.0f), new Color4(1.0f, 1.5f, 0.0f,1.0f)),
-                 new Vertex(new Vector3(13.0f, 5.0f, -60.0f), new Color4(1.0f, 1.5f, 0.0f,1.0f)),
-                 new Vertex(new Vector3(-13.0f, 5.0f, -60.0f),new Color4(1.0f, 1.5f, 0.0f,1.0f)),
-                 new Vertex(new Vector3(-13.0f, 5.0f, -40.0f),new Color4(1.0f, 1.5f, 0.0f,1.0f)),
-
-
-
-                new Vertex(new Vector3(-11.5f, 5.0f, -42.0f),  new Color4(2.5f, 1.5f, 1.0f, 1.0f)),
-                new Vertex(new Vector3(-11.5f, 5.0f, -45.0f),  new Color4(2.5f, 1.5f, 1.0f, 1.0f)),
-                new Vertex(new Vector3(-11.5f, -10.0f, -45.0f),  new Color4(2.5f, 1.5f, 1.0f, 1.0f)),
-                new Vertex(new Vector3(-11.5f, -10.0f, -42.0f),  new Color4(2.5f, 1.5f, 1.0f, 1.0f)),
-
-                new Vertex(new Vector3(-8.5f, 5.0f, -42.0f),  new Color4(1.0f, 1.5f, 0.5f, 1.0f)),
-                new Vertex(new Vector3(-8.5f, 5.0f, -45.0f),  new Color4(1.0f, 1.5f, 0.5f, 1.0f)),
-                new Vertex(new Vector3(-8.5f, -10.0f, -45.0f),  new Color4(1.0f, 1.5f, 0.5f, 1.0f)),
-                new Vertex(new Vector3(-8.5f, -10.0f, -42.0f),  new Color4(1.0f, 1.5f, 0.5f, 1.0f)),
-
-                new Vertex(new Vector3(-8.5f, -10.0f, -42.0f),  new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-                new Vertex(new Vector3(-8.5f, -10.0f, -45.0f),  new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-                new Vertex(new Vector3(-11.5f, -10.0f, -45.0f),  new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-                new Vertex(new Vector3(-11.5f, -10.0f, -42.0f),  new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-
-                new Vertex(new Vector3(-8.5f, 5.0f, -42.0f),  new Color4(1.0f, 0.0f, 0.0f, 1.0f)),
-                new Vertex(new Vector3(-8.5f, 5.0f, -45.0f),  new Color4(1.0f, 0.0f, 0.0f, 1.0f)),
-                new Vertex(new Vector3(-11.5f, 5.0f, -45.0f),  new Color4(1.0f, 0.0f, 0.0f, 1.0f)),
-                new Vertex(new Vector3(-11.5f, 5.0f, -42.0f),  new Color4(1.0f, 0.0f, 0.0f, 1.0f)),
-
-                new Vertex(new Vector3(-8.5f, 5.0f, -45.0f),  new Color4(1.0f, 1.0f, 0.0f, 1.0f)),
-                new Vertex(new Vector3(-8.5f, -10.0f, -45.0f),  new Color4(1.0f, 1.0f, 0.0f, 1.0f)),
-                new Vertex(new Vector3(-11.5f, -10.0f, -45.0f),  new Color4(1.0f, 1.0f, 0.0f, 1.0f)),
-                new Vertex(new Vector3(-11.5f, 5.0f, -45.0f),  new Color4(1.0f, 1.0f, 0.0f, 1.0f)),
-
-                new Vertex(new Vector3(-8.5f, 5.0f, -42.0f),  new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-                new Vertex(new Vector3(-8.5f, -10.0f, -42.0f),  new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-                new Vertex(new Vector3(-11.5f, -10.0f, -42.0f),  new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-                new Vertex(new Vector3(-11.5f, 5.0f, -42.0f),  new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-
-
-
-                new Vertex( new Vector3(-8.5f, 5.0f, -55.0f),    new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-                new Vertex( new Vector3(-8.5f, -10.0f, -55.0f),  new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-                new Vertex( new Vector3(-11.5f, -10.0f, -55.0f), new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-                new Vertex( new Vector3(-11.5f, 5.0f, -55.0f),   new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-
-                new Vertex( new Vector3(-8.5f, 5.0f, -58.0f),    new Color4(1.0f, 1.0f, 0.0f, 1.0f)),
-                new Vertex( new Vector3(-8.5f, -10.0f, -58.0f),  new Color4(1.0f, 1.0f, 0.0f, 1.0f)),
-                new Vertex( new Vector3(-11.5f, -10.0f, -58.0f), new Color4(1.0f, 1.0f, 0.0f, 1.0f)),
-                new Vertex( new Vector3(-11.5f, 5.0f, -58.0f),   new Color4(1.0f, 1.0f, 0.0f, 1.0f)),
-
-                new Vertex( new Vector3(-11.5f, 5.0f, -58.0f), new Color4(2.5f, 1.5f, 1.0f, 1.0f)),
-                new Vertex( new Vector3(-11.5f, 5.0f, -55.0f), new Color4(2.5f, 1.5f, 1.0f, 1.0f)),
-                new Vertex( new Vector3(-11.5f, -10.0f, -55.0f), new Color4(2.5f, 1.5f, 1.0f, 1.0f)),
-                new Vertex( new Vector3(-11.5f, -10.0f, -58.0f), new Color4(2.5f, 1.5f, 1.0f, 1.0f)),
-
-                new Vertex( new Vector3(-8.5f, 5.0f, -58.0f), new Color4(1.0f, 1.5f, 0.5f, 1.0f)),
-                new Vertex( new Vector3(-8.5f, 5.0f, -55.0f), new Color4(1.0f, 1.5f, 0.5f, 1.0f)),
-                new Vertex( new Vector3(-8.5f, -10.0f, -55.0f), new Color4(1.0f, 1.5f, 0.5f, 1.0f)),
-                new Vertex( new Vector3(-8.5f, -10.0f, -58.0f), new Color4(1.0f, 1.5f, 0.5f, 1.0f)),
-
-                new Vertex( new Vector3(-8.5f, -10.0f, -58.0f), new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-                new Vertex( new Vector3(-8.5f, -10.0f, -55.0f), new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-                new Vertex( new Vector3(-11.5f, -10.0f, -55.0f), new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-                new Vertex( new Vector3(-11.5f, -10.0f, -58.0f), new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-
-                new Vertex( new Vector3(-8.5f, 5.0f, -58.0f), new Color4(1.0f, 0.0f, 0.0f, 1.0f)),
-                new Vertex( new Vector3(-8.5f, 5.0f, -55.0f), new Color4(1.0f, 0.0f, 0.0f, 1.0f)),
-                new Vertex( new Vector3(-11.5f, 5.0f, -55.0f), new Color4(1.0f, 0.0f, 0.0f, 1.0f)),
-                new Vertex( new Vector3(-11.5f, 5.0f, -58.0f), new Color4(1.0f, 0.0f, 0.0f, 1.0f)),
-
-
-
-                new Vertex(new Vector3(8.5f, 5.0f, -45.0f), new Color4(2.5f, 1.5f, 1.0f, 1.0f)),
-                new Vertex(new Vector3(8.5f, 5.0f, -42.0f), new Color4(2.5f, 1.5f, 1.0f, 1.0f)),
-                new Vertex(new Vector3(8.5f, -10.0f, -42.0f), new Color4(2.5f, 1.5f, 1.0f, 1.0f)),
-                new Vertex(new Vector3(8.5f, -10.0f, -45.0f), new Color4(2.5f, 1.5f, 1.0f, 1.0f)),
-
-                new Vertex(new Vector3(11.5f, 5.0f, -45.0f), new Color4(1.0f, 1.5f, 0.5f, 1.0f)),
-                new Vertex(new Vector3(11.5f, 5.0f, -42.0f), new Color4(1.0f, 1.5f, 0.5f, 1.0f)),
-                new Vertex(new Vector3(11.5f, -10.0f, -42.0f), new Color4(1.0f, 1.5f, 0.5f, 1.0f)),
-                new Vertex(new Vector3(11.5f, -10.0f, -45.0f), new Color4(1.0f, 1.5f, 0.5f, 1.0f)),
-
-                new Vertex(new Vector3(11.5f, -10.0f, -45.0f), new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-                new Vertex(new Vector3(11.5f, -10.0f, -42.0f), new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-                new Vertex(new Vector3(8.5f, -10.0f, -42.0f), new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-                new Vertex(new Vector3(8.5f, -10.0f, -45.0f), new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-
-                new Vertex(new Vector3(11.5f, 5.0f, -45.0f), new Color4(1.0f, 0.0f, 0.0f, 1.0f)),
-                new Vertex(new Vector3(11.5f, 5.0f, -42.0f), new Color4(1.0f, 0.0f, 0.0f, 1.0f)),
-                new Vertex(new Vector3(8.5f, 5.0f, -42.0f), new Color4(1.0f, 0.0f, 0.0f, 1.0f)),
-                new Vertex(new Vector3(8.5f, 5.0f, -45.0f), new Color4(1.0f, 0.0f, 0.0f, 1.0f)),
-
-                new Vertex(new Vector3(11.5f, 5.0f, -45.0f), new Color4(1.0f, 1.0f, 0.0f, 1.0f)),
-                new Vertex(new Vector3(11.5f, -10.0f, -45.0f), new Color4(1.0f, 1.0f, 0.0f, 1.0f)),
-                new Vertex(new Vector3(8.5f, -10.0f, -45.0f), new Color4(1.0f, 1.0f, 0.0f, 1.0f)),
-                new Vertex(new Vector3(8.5f, 5.0f, -45.0f), new Color4(1.0f, 1.0f, 0.0f, 1.0f)),
-
-                new Vertex(new Vector3(11.5f, 5.0f, -42.0f), new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-                new Vertex(new Vector3(11.5f, -10.0f, -42.0f), new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-                new Vertex(new Vector3(8.5f, -10.0f, -42.0f), new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-                new Vertex(new Vector3(8.5f, 5.0f, -42.0f), new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-
-
-
-                new Vertex( new Vector3(8.5f, 5.0f, -55.0f), new Color4(2.5f, 1.5f, 1.0f, 1.0f)),
-                new Vertex( new Vector3(8.5f, 5.0f, -58.0f), new Color4(2.5f, 1.5f, 1.0f, 1.0f)),
-                new Vertex( new Vector3(8.5f, -10.0f, -58.0f), new Color4(2.5f, 1.5f, 1.0f, 1.0f)),
-                new Vertex( new Vector3(8.5f, -10.0f, -55.0f), new Color4(2.5f, 1.5f, 1.0f, 1.0f)),
-
-                new Vertex( new Vector3(11.5f, 5.0f, -55.0f), new Color4(1.0f, 1.5f, 0.5f, 1.0f)),
-                new Vertex( new Vector3(11.5f, 5.0f, -58.0f), new Color4(1.0f, 1.5f, 0.5f, 1.0f)),
-                new Vertex( new Vector3(11.5f, -10.0f, -58.0f), new Color4(1.0f, 1.5f, 0.5f, 1.0f)),
-                new Vertex( new Vector3(11.5f, -10.0f, -55.0f), new Color4(1.0f, 1.5f, 0.5f, 1.0f)),
-
-                new Vertex( new Vector3(11.5f, -10.0f, -55.0f), new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-                new Vertex( new Vector3(11.5f, -10.0f, -58.0f), new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-                new Vertex( new Vector3(8.5f, -10.0f, -58.0f), new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-                new Vertex( new Vector3(8.5f, -10.0f, -55.0f), new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-
-                new Vertex( new Vector3(11.5f, 5.0f, -55.0f), new Color4(1.0f, 0.0f, 0.0f, 1.0f)),
-                new Vertex( new Vector3(11.5f, 5.0f, -58.0f), new Color4(1.0f, 0.0f, 0.0f, 1.0f)),
-                new Vertex( new Vector3(8.5f, 5.0f, -58.0f), new Color4(1.0f, 0.0f, 0.0f, 1.0f)),
-                new Vertex( new Vector3(8.5f, 5.0f, -55.0f), new Color4(1.0f, 0.0f, 0.0f, 1.0f)),
-
-                new Vertex( new Vector3(11.5f, 5.0f, -58.0f), new Color4(1.0f, 1.0f, 0.0f, 1.0f)),
-                new Vertex( new Vector3(11.5f, -10.0f, -58.0f), new Color4(1.0f, 1.0f, 0.0f, 1.0f)),
-                new Vertex( new Vector3(8.5f, -10.0f, -58.0f), new Color4(1.0f, 1.0f, 0.0f, 1.0f)),
-                new Vertex( new Vector3(8.5f, 5.0f, -58.0f), new Color4(1.0f, 1.0f, 0.0f, 1.0f)),
-
-                new Vertex( new Vector3(11.5f, 5.0f, -55.0f), new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-                new Vertex( new Vector3(11.5f, -10.0f, -55.0f), new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-                new Vertex( new Vector3(8.5f, -10.0f, -55.0f), new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-                new Vertex( new Vector3(8.5f, 5.0f, -55.0f), new Color4(0.5f, 0.35f, 0.05f, 1.0f)),
-
-            };
-
-            this.vertices = vertexs;
-        }
-
+        
         public void dibujar()
         {
-            GL.Begin(tipoFigura);
+            dibujarTablon();
+            dibujarPataDerAdelante();
+            dibujarPataDerAtras();
+            dibujarPataIzqAdelante();
+            dibujarPataIzqAtras();
+        }
+        
+        public void dibujarTablon()
+        {
+            GL.Begin(PrimitiveType.Quads);
 
-            for (int i = 0; i < this.vertices.Length; i++)
-            {
-                GL.Color4(vertices[i].Color);
-                GL.Vertex3(vertices[i].Position);
-            }
+            //Frente
+            GL.Color3(1.0, 1.5, 0.5);
+            GL.Vertex3(centro.X + cx, centro.Y + cy,        centro.Z + cz);
+            GL.Vertex3(centro.X + cx, centro.Y + cy * 0.65, centro.Z + cz);
+            GL.Vertex3(centro.X - cx, centro.Y + cy * 0.65, centro.Z + cz);
+            GL.Vertex3(centro.X - cx, centro.Y + cy,        centro.Z + cz);
+
+            //Atras
+            GL.Color3(1.0, 1.5, 0.5);
+            GL.Vertex3(centro.X + cx, centro.Y + cy,        centro.Z - cz);
+            GL.Vertex3(centro.X + cx, centro.Y + cy * 0.65, centro.Z - cz);
+            GL.Vertex3(centro.X - cx, centro.Y + cy * 0.65, centro.Z - cz);
+            GL.Vertex3(centro.X - cx, centro.Y + cy,        centro.Z - cz);
+
+            //Izq
+            GL.Color3(1.0, 1.5, 0.5);
+            GL.Vertex3(centro.X - cx, centro.Y + cy,        centro.Z + cz);
+            GL.Vertex3(centro.X - cx, centro.Y + cy,        centro.Z - cz);
+            GL.Vertex3(centro.X - cx, centro.Y + cy * 0.65, centro.Z - cz);
+            GL.Vertex3(centro.X - cx, centro.Y + cy * 0.65, centro.Z + cz);
+
+            //Der
+            GL.Color3(1.0, 1.5, 0.5);
+            GL.Vertex3(centro.X + cx, centro.Y + cy,        centro.Z + cz);
+            GL.Vertex3(centro.X + cx, centro.Y + cy,        centro.Z - cz);
+            GL.Vertex3(centro.X + cx, centro.Y + cy * 0.65, centro.Z - cz);
+            GL.Vertex3(centro.X + cx, centro.Y + cy * 0.65, centro.Z + cz);
+
+            //Arriba
+            GL.Color3(1.0, 1.5, 0.5);
+            GL.Vertex3(centro.X + cx, centro.Y + cy, centro.Z + cz);
+            GL.Vertex3(centro.X + cx, centro.Y + cy, centro.Z - cz);
+            GL.Vertex3(centro.X - cx, centro.Y + cy, centro.Z - cz);
+            GL.Vertex3(centro.X - cx, centro.Y + cy, centro.Z + cz);
+
+            //Abajo
+            GL.Color3(1.0, 1.5, 0.0);
+            GL.Vertex3(centro.X + cx, centro.Y + cy * 0.65, centro.Z + cz);
+            GL.Vertex3(centro.X + cx, centro.Y + cy * 0.65, centro.Z - cz);
+            GL.Vertex3(centro.X - cx, centro.Y + cy * 0.65, centro.Z - cz);
+            GL.Vertex3(centro.X - cx, centro.Y + cy * 0.65, centro.Z + cz);
 
             GL.End();
 
         }
+
+        public void dibujarPataDerAdelante()
+        {
+            GL.Begin(PrimitiveType.Quads);
+
+            //Frente
+            GL.Color3(0.5f, 0.35f, 0.05f);
+            GL.Vertex3(centro.X + cx,         centro.Y + (cy * 0.65), centro.Z + cz);
+            GL.Vertex3(centro.X + cx,         centro.Y -  cy,         centro.Z + cz);
+            GL.Vertex3(centro.X + (cx * 0.8), centro.Y -  cy,         centro.Z + cz);
+            GL.Vertex3(centro.X + (cx * 0.8), centro.Y + (cy * 0.65), centro.Z + cz);
+
+            //Atras
+            GL.Color3(1.0, 1.0, 0.0);
+            GL.Vertex3(centro.X + cx,         centro.Y + (cy * 0.65), centro.Z + (cz * 0.6));
+            GL.Vertex3(centro.X + cx,         centro.Y -  cy,         centro.Z + (cz * 0.6));
+            GL.Vertex3(centro.X + (cx * 0.8), centro.Y -  cy,         centro.Z + (cz * 0.6));
+            GL.Vertex3(centro.X + (cx * 0.8), centro.Y + (cy * 0.65), centro.Z + (cz * 0.6));
+
+            //Der
+            GL.Color3(1.0, 1.5, 0.5);
+            GL.Vertex3(centro.X + cx, centro.Y + (cy * 0.65), centro.Z + cz);
+            GL.Vertex3(centro.X + cx, centro.Y + (cy * 0.65), centro.Z + (cz * 0.6));
+            GL.Vertex3(centro.X + cx, centro.Y -  cy,         centro.Z + (cz * 0.6));
+            GL.Vertex3(centro.X + cx, centro.Y -  cy,         centro.Z + cz);
+
+            //Izq
+            GL.Color3(2.5, 1.5, 1.0);
+            GL.Vertex3(centro.X + (cx * 0.8), centro.Y + (cy * 0.65), centro.Z + cz);
+            GL.Vertex3(centro.X + (cx * 0.8), centro.Y + (cy * 0.65), centro.Z + (cz * 0.6));
+            GL.Vertex3(centro.X + (cx * 0.8), centro.Y -  cy,         centro.Z + (cz * 0.6));
+            GL.Vertex3(centro.X + (cx * 0.8), centro.Y -  cy,         centro.Z + cz);
+
+            //Arriba
+            GL.Color3(1.0, 0.0, 0.0);
+            GL.Vertex3(centro.X + cx,         centro.Y + (cy * 0.65), centro.Z +  cz);
+            GL.Vertex3(centro.X + cx,         centro.Y + (cy * 0.65), centro.Z + (cz * 0.6));
+            GL.Vertex3(centro.X + (cx * 0.8), centro.Y + (cy * 0.65), centro.Z + (cz * 0.6));
+            GL.Vertex3(centro.X + (cx * 0.8), centro.Y + (cy * 0.65), centro.Z +  cz);
+
+            //Abajo
+            GL.Color3(0.5f, 0.35f, 0.05f);
+            GL.Vertex3(centro.X + cx,         centro.Y - cy, centro.Z +  cz);
+            GL.Vertex3(centro.X + cx,         centro.Y - cy, centro.Z + (cz * 0.6));
+            GL.Vertex3(centro.X + (cx * 0.8), centro.Y - cy, centro.Z + (cz * 0.6));
+            GL.Vertex3(centro.X + (cx * 0.8), centro.Y - cy, centro.Z +  cz);
+
+            GL.End();
+        }
+
+        public void dibujarPataDerAtras()
+        {
+            GL.Begin(PrimitiveType.Quads);
+
+            //Frente 
+            GL.Color3(0.5f, 0.35f, 0.05f);
+            GL.Vertex3(centro.X + cx,         centro.Y + (cy * 0.65), centro.Z - (cz * 0.6));
+            GL.Vertex3(centro.X + cx,         centro.Y - cy,          centro.Z - (cz * 0.6));
+            GL.Vertex3(centro.X + (cx * 0.8), centro.Y - cy,          centro.Z - (cz * 0.6));
+            GL.Vertex3(centro.X + (cx * 0.8), centro.Y + (cy * 0.65), centro.Z - (cz * 0.6));
+
+            //Atras o back
+            GL.Color3(1.0, 1.0, 0.0);
+            GL.Vertex3(centro.X + cx,         centro.Y + (cy * 0.65), centro.Z - cz);
+            GL.Vertex3(centro.X + cx,         centro.Y - cy,          centro.Z - cz);
+            GL.Vertex3(centro.X + (cx * 0.8), centro.Y - cy,          centro.Z - cz);
+            GL.Vertex3(centro.X + (cx * 0.8), centro.Y + (cy * 0.65), centro.Z - cz);
+
+            //Der
+            GL.Color3(1.0, 1.5, 0.5);
+            GL.Vertex3(centro.X + cx, centro.Y + (cy * 0.65), centro.Z - cz);
+            GL.Vertex3(centro.X + cx, centro.Y + (cy * 0.65), centro.Z - (cz * 0.6));
+            GL.Vertex3(centro.X + cx, centro.Y - cy,          centro.Z - (cz * 0.6));
+            GL.Vertex3(centro.X + cx, centro.Y - cy,          centro.Z - cz);
+
+            //Izq
+            GL.Color3(2.5, 1.5, 1.0);
+            GL.Vertex3(centro.X + (cx * 0.8), centro.Y + (cy * 0.65), centro.Z - cz);
+            GL.Vertex3(centro.X + (cx * 0.8), centro.Y + (cy * 0.65), centro.Z - (cz * 0.6));
+            GL.Vertex3(centro.X + (cx * 0.8), centro.Y - cy,          centro.Z - (cz * 0.6));
+            GL.Vertex3(centro.X + (cx * 0.8), centro.Y - cy,          centro.Z - cz);
+
+            //Arriba
+            GL.Color3(1.0, 0.0, 0.0);
+            GL.Vertex3(centro.X + cx,         centro.Y + (cy * 0.65), centro.Z - cz);
+            GL.Vertex3(centro.X + cx,         centro.Y + (cy * 0.65), centro.Z - (cz * 0.6));
+            GL.Vertex3(centro.X + (cx * 0.8), centro.Y + (cy * 0.65), centro.Z - (cz * 0.6));
+            GL.Vertex3(centro.X + (cx * 0.8), centro.Y + (cy * 0.65), centro.Z - cz);
+
+            //Abajo
+            GL.Color3(0.5f, 0.35f, 0.05f);
+            GL.Vertex3(centro.X + cx,         centro.Y - cy, centro.Z - cz);
+            GL.Vertex3(centro.X + cx,         centro.Y - cy, centro.Z - (cz * 0.6));
+            GL.Vertex3(centro.X + (cx * 0.8), centro.Y - cy, centro.Z - (cz * 0.6));
+            GL.Vertex3(centro.X + (cx * 0.8), centro.Y - cy, centro.Z - cz);
+            
+
+            GL.End();
+        }
+
+        public void dibujarPataIzqAdelante()
+        {
+            GL.Begin(PrimitiveType.Quads);
+
+            //Frente o Front
+            GL.Color3(0.5f, 0.35f, 0.05f);
+            GL.Vertex3(centro.X - cx,         centro.Y + (cy * 0.65), centro.Z + cz);
+            GL.Vertex3(centro.X - cx,         centro.Y - cy,          centro.Z + cz);
+            GL.Vertex3(centro.X - (cx * 0.8), centro.Y - cy,          centro.Z + cz);
+            GL.Vertex3(centro.X - (cx * 0.8), centro.Y + (cy * 0.65), centro.Z + cz);
+
+            //Atras o back
+            GL.Color3(1.0, 1.0, 0.0);
+            GL.Vertex3(centro.X - cx,         centro.Y + (cy * 0.65), centro.Z + (cz * 0.6));
+            GL.Vertex3(centro.X - cx,         centro.Y - cy,          centro.Z + (cz * 0.6));
+            GL.Vertex3(centro.X - (cx * 0.8), centro.Y - cy,          centro.Z + (cz * 0.6));
+            GL.Vertex3(centro.X - (cx * 0.8), centro.Y + (cy * 0.65), centro.Z + (cz * 0.6));
+
+            //Izq
+            GL.Color3(2.5, 1.5, 1.0);
+            GL.Vertex3(centro.X - cx, centro.Y + (cy * 0.65), centro.Z + cz);
+            GL.Vertex3(centro.X - cx, centro.Y + (cy * 0.65), centro.Z + (cz * 0.6));
+            GL.Vertex3(centro.X - cx, centro.Y - cy,          centro.Z + (cz * 0.6));
+            GL.Vertex3(centro.X - cx, centro.Y - cy,          centro.Z + cz);
+
+            //Der
+            //GL.Color3(1.0, 1.5, 0.5);
+            GL.Color4(Color.White);
+
+            GL.Vertex3(centro.X - (cx * 0.8), centro.Y + (cy * 0.65), centro.Z + cz);
+            GL.Vertex3(centro.X - (cx * 0.8), centro.Y + (cy * 0.65), centro.Z + (cz * 0.6));
+            GL.Vertex3(centro.X - (cx * 0.8), centro.Y - cy,          centro.Z + (cz * 0.6));
+            GL.Vertex3(centro.X - (cx * 0.8), centro.Y - cy,          centro.Z + cz);
+
+            //Arriba
+            GL.Color3(1.0, 0.0, 0.0);
+            GL.Vertex3(centro.X - cx,         centro.Y + (cy * 0.65), centro.Z + cz);
+            GL.Vertex3(centro.X - cx,         centro.Y + (cy * 0.65), centro.Z + (cz * 0.6));
+            GL.Vertex3(centro.X - (cx * 0.8), centro.Y + (cy * 0.65), centro.Z + (cz * 0.6));
+            GL.Vertex3(centro.X - (cx * 0.8), centro.Y + (cy * 0.65), centro.Z + cz);
+
+            //Abajo
+            GL.Color3(0.5f, 0.35f, 0.05f);
+            GL.Vertex3(centro.X - cx,         centro.Y - cy, centro.Z + cz);
+            GL.Vertex3(centro.X - cx,         centro.Y - cy, centro.Z + (cz * 0.6));
+            GL.Vertex3(centro.X - (cx * 0.8), centro.Y - cy, centro.Z + (cz * 0.6));
+            GL.Vertex3(centro.X - (cx * 0.8), centro.Y - cy, centro.Z + cz);
+
+            GL.End();
+        }
+
+        public void dibujarPataIzqAtras()
+        {
+            GL.Begin(PrimitiveType.Quads);
+
+            //Frente o Front
+            GL.Color3(0.5f, 0.35f, 0.05f);
+            GL.Vertex3(centro.X - cx,         centro.Y + (cy * 0.65), centro.Z - (cz * 0.6));
+            GL.Vertex3(centro.X - cx,         centro.Y - cy,          centro.Z - (cz * 0.6));
+            GL.Vertex3(centro.X - (cx * 0.8), centro.Y - cy,          centro.Z - (cz * 0.6));
+            GL.Vertex3(centro.X - (cx * 0.8), centro.Y + (cy * 0.65), centro.Z - (cz * 0.6));
+
+            //Atras o back
+            GL.Color3(1.0, 1.0, 0.0);
+            GL.Vertex3(centro.X - cx,         centro.Y + (cy * 0.65), centro.Z - cz);
+            GL.Vertex3(centro.X - cx,         centro.Y - cy,          centro.Z - cz);
+            GL.Vertex3(centro.X - (cx * 0.8), centro.Y - cy,          centro.Z - cz);
+            GL.Vertex3(centro.X - (cx * 0.8), centro.Y + (cy * 0.65), centro.Z - cz);
+
+            //Izq
+            GL.Color3(2.5, 1.5, 1.0);
+            GL.Vertex3(centro.X - cx, centro.Y + (cy * 0.65), centro.Z - cz);
+            GL.Vertex3(centro.X - cx, centro.Y + (cy * 0.65), centro.Z - (cz * 0.6));
+            GL.Vertex3(centro.X - cx, centro.Y - cy,          centro.Z - (cz * 0.6));
+            GL.Vertex3(centro.X - cx, centro.Y - cy,          centro.Z - cz);
+
+            //Der
+            //GL.Color3(1.0, 1.5, 0.5);
+            GL.Color4(Color.White);
+            GL.Vertex3(centro.X - (cx * 0.8), centro.Y + (cy * 0.65), centro.Z - cz);
+            GL.Vertex3(centro.X - (cx * 0.8), centro.Y + (cy * 0.65), centro.Z - (cz * 0.6));
+            GL.Vertex3(centro.X - (cx * 0.8), centro.Y - cy,          centro.Z - (cz * 0.6));
+            GL.Vertex3(centro.X - (cx * 0.8), centro.Y - cy,          centro.Z - cz);
+
+            //Arriba
+            GL.Color3(1.0, 0.0, 0.0);
+            GL.Vertex3(centro.X - cx,         centro.Y + (cy * 0.65), centro.Z - cz);
+            GL.Vertex3(centro.X - cx,         centro.Y + (cy * 0.65), centro.Z - (cz * 0.6));
+            GL.Vertex3(centro.X - (cx * 0.8), centro.Y + (cy * 0.65), centro.Z - (cz * 0.6));
+            GL.Vertex3(centro.X - (cx * 0.8), centro.Y + (cy * 0.65), centro.Z - cz);
+
+            //Abajo
+            GL.Color3(0.5f, 0.35f, 0.05f);
+            GL.Vertex3(centro.X - cx,         centro.Y - cy, centro.Z - cz);
+            GL.Vertex3(centro.X - cx,         centro.Y - cy, centro.Z - (cz * 0.6));
+            GL.Vertex3(centro.X - (cx * 0.8), centro.Y - cy, centro.Z - (cz * 0.6));
+            GL.Vertex3(centro.X - (cx * 0.8), centro.Y - cy, centro.Z - cz);
+
+            GL.End();
+        }
+
     }
 }
