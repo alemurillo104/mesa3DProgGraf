@@ -34,6 +34,14 @@ namespace App.Models.SillaPartes
             this.color = Color4.Yellow;
         }
 
+
+        public override void CalculateModelMatrix()
+        {
+            ModelMatrix = Matrix4.CreateScale(Scale) *
+                          matriXRotation *
+                          Matrix4.CreateTranslation(Position);
+        }
+
         public override Vertex[] GetVerts()
         {
             return new Vertex[]
@@ -303,27 +311,11 @@ namespace App.Models.SillaPartes
                 new Vertex(new Vector4(centro.X + cx,          centro.Y - cy, centro.Z - (cz * 0.6f), 1), color),
                 new Vertex(new Vector4(centro.X + (cx * 0.7f), centro.Y - cy, centro.Z - cz, 1), color),
                 new Vertex(new Vector4(centro.X + (cx * 0.7f), centro.Y - cy, centro.Z -  (cz * 0.6f), 1), color),
-                
+
             };
 
         }
 
-        
-        public override void setScale(float s, bool plus)
-        {
-            if (plus)
-                Scale = new Vector3(Scale.X * 1.1f, Scale.Y * 1.1f, Scale.Z * 1.1f);
-            else
-                Scale = new Vector3(Scale.X * 0.9f, Scale.Y * 0.9f, Scale.Z * 0.9f);
-        }
-
-        public override void CalculateModelMatrix()
-        {
-            ModelMatrix = Matrix4.CreateScale(Scale) *
-                          matriXRotation *
-                          Matrix4.CreateTranslation(Position);
-        }
-     
         public override TexturedVertex[] GetVerts2()
         {
             float h = 256;
@@ -599,6 +591,17 @@ namespace App.Models.SillaPartes
             };
         }
 
+        #region Scale
+        public override void setScale(float s, bool plus)
+        {
+            if (plus)
+                Scale = new Vector3(Scale.X * 1.1f, Scale.Y * 1.1f, Scale.Z * 1.1f);
+            else
+                Scale = new Vector3(Scale.X * 0.9f, Scale.Y * 0.9f, Scale.Z * 0.9f);
+        }
+        #endregion
+
+        #region Position
         public override void MoverX(bool plus)
         {
             Position = new Vector3((plus) ? Position.X + 0.1f : Position.X - 0.1f, Position.Y, Position.Z);
@@ -614,6 +617,25 @@ namespace App.Models.SillaPartes
             Position = new Vector3(Position.X,  Position.Y, (plus) ? Position.Z + 0.1f : Position.Z - 0.1f);
         }
 
+
+        public override void MoverX(float val)
+        {
+            Position = new Vector3(Position.X + val, Position.Y, Position.Z);
+        }
+
+        public override void MoverY(float val)
+        {
+            Position = new Vector3(Position.X, Position.Y + val, Position.Z);
+        }
+
+        public override void MoverZ(float val)
+        {
+            Position = new Vector3(Position.X, Position.Y, Position.Z + val);
+        }
+
+        #endregion
+
+        #region Rotation
         public override void RotateX(bool dir)
         {
             if (dir)
@@ -648,57 +670,7 @@ namespace App.Models.SillaPartes
                                   Matrix4.CreateRotationZ(Rotation.Z - 0.1f);
         }
 
-        public override void MoverX(float val)
-        {
-            Position = new Vector3(Position.X + val, Position.Y, Position.Z);
-        }
+        #endregion
 
-        public override void MoverY(float val)
-        {
-            Position = new Vector3(Position.X, Position.Y + val, Position.Z);
-        }
-
-        public override void MoverZ(float val)
-        {
-            Position = new Vector3(Position.X, Position.Y, Position.Z + val);
-        }
-        /*
-
-        ESTA ERA LA IDEA PARA LA ROTACION, ME SERVIRA PARA LAS PARTES DEL ROBOT SI, TENGO QUE VER COMO HACER ESO AUN OKISS
-        public override void RotateX(bool dir)
-        {
-            //var anterior = matriXRotation;
-            //var anteriorT = Position;
-
-            //Position = Vector3.Zero;
-            if (dir)
-            {
-                matriXRotation *= Matrix4.CreateRotationX(MathHelper.DegreesToRadians(1));
-                matriXRotation *= Matrix4.CreateRotationY(0);
-                matriXRotation *= Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(1));
-            }
-            else
-            {
-                matriXRotation *= Matrix4.CreateRotationX(MathHelper.DegreesToRadians(-1));
-                matriXRotation *= Matrix4.CreateRotationY(0);
-                matriXRotation *= Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(-1));
-            }
-            //Position  = new Vector3(0,0.5f,-3.5f);
-            //Position = anteriorT;
-        }
-
-        public override void RotateY(bool dir)
-        {
-            //Position = new Vector3(0, 0, 0);
-            matriXPosition = Matrix4.Identity;
-
-        }
-
-        public override void RotateZ(bool dir)
-        {
-            //Position = new Vector3(0f, 0.092f, -2.8f);
-            matriXPosition = Matrix4.CreateTranslation(new Vector3(0f, 0.092f, -2.8f));
-        }
-        */
     }
 }

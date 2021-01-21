@@ -43,12 +43,12 @@ namespace App.Estructura
                 objects.Get(e.Key).CalculateModelMatrix();
         }
 
+        #region Position
         public override void MoverX(bool plus)
         {
             foreach (DictionaryEntry e in objects)
                 objects.Get(e.Key).MoverX(plus);
         }
-
         public override void MoverY(bool plus)
         {
             foreach (DictionaryEntry e in objects)
@@ -61,6 +61,9 @@ namespace App.Estructura
                 objects.Get(e.Key).MoverZ(plus);
         }
 
+        #endregion
+
+        #region Rotation
         public override void RotateX(bool dir)
         {
             foreach (DictionaryEntry e in objects)
@@ -78,11 +81,15 @@ namespace App.Estructura
             foreach (DictionaryEntry e in objects)
                 objects.Get(e.Key).RotateZ(dir);
         }
+        #endregion
+
+        #region Scale
 
         public override void setScale(float s, bool plus)
         {
             foreach (DictionaryEntry e in objects)
                 objects.Get(e.Key).setScale(s, plus);
         }
+        #endregion
     }
 }

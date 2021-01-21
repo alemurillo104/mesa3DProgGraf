@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 namespace Tarea6_ScaleRotationTraslation.RCommon
 {
 
-    public class ShaderProgram2 : IDisposable
+    public class ShaderProgram : IDisposable
     {
         #region Singleton
-        public static ShaderProgram2 Instance { get => instance; }
-        private static ShaderProgram2 instance = new ShaderProgram2();
+        public static ShaderProgram Instance { get => instance; }
+        private static ShaderProgram instance = new ShaderProgram();
         #endregion
 
         public int Id => _program;
@@ -23,12 +23,12 @@ namespace Tarea6_ScaleRotationTraslation.RCommon
 
         public string ruta = @"D:\\UNIVERSIDAD\\SEMESTRE VIRTUAL\\SEMESTRE II-2020\\Grafica\\TAREA PRESENTADA\\Tarea6_ScaleRotationTraslation\\Tarea6_ScaleRotationTraslation\\Shaders\";
 
-        public ShaderProgram2()
+        public ShaderProgram()
         {
             _program = GL.CreateProgram();
         }
 
-        public ShaderProgram2(String v, String f)
+        public ShaderProgram(String v, String f)
         {
             _program = GL.CreateProgram();
 

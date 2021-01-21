@@ -53,10 +53,6 @@
     <Compile Include="Models\RobotPartes\Extremidades\LArmS.cs" />
     <Compile Include="Models\RobotPartes\Extremidades\LLegI.cs" />
     <Compile Include="Models\RobotPartes\Extremidades\LLegS.cs" />
-    <Compile Include="Models\RobotPartes\LeftArm.cs" />
-    <Compile Include="Models\RobotPartes\LeftLeg.cs" />
-    <Compile Include="Models\RobotPartes\RightArm.cs" />
-    <Compile Include="Models\RobotPartes\RightLeg.cs" />
     <Compile Include="Models\Scene.cs" />
     <Compile Include="Estructura\Escenario.cs" />
     <Compile Include="GameWindow\Game.cs" />
@@ -76,7 +72,7 @@
     <Compile Include="RCommon\CRenderObj.cs" />
     <Compile Include="RCommon\RenderObject1.cs" />
     <Compile Include="RCommon\ShaderManager.cs" />
-    <Compile Include="RCommon\ShaderProgram2.cs" />
+    <Compile Include="RCommon\ShaderProgram.cs" />
     <Compile Include="RCommon\TRenderObj.cs" />
     <Compile Include="RCommon\Vertex.cs" />
     <Compile Include="Utils\Camera.cs" />

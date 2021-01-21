@@ -25,11 +25,6 @@ namespace Tarea6_ScaleRotationTraslation.Models.RobotPartes.Extremidades
         }
 
 
-        public override void setScale(float s, bool plus)
-        {
-            Scale = (plus) ? new Vector3(Scale.X * 1.1f, Scale.Y * 1.1f, Scale.Z * 1.1f)
-                            : new Vector3(Scale.X * 0.9f, Scale.Y * 0.9f, Scale.Z * 0.9f);
-        }
 
         public override void CalculateModelMatrix()
         {
@@ -234,6 +229,7 @@ namespace Tarea6_ScaleRotationTraslation.Models.RobotPartes.Extremidades
             new TexturedVertex(new Vector4(centro.X - (cx * 0.3f), centro.Y - (cy * 0.9f), centro.Z + (cz * 0.5f), 1), new Vector2(w,0)),
             new TexturedVertex(new Vector4(centro.X - (cx * 0.3f), centro.Y -  cy,         centro.Z + (cz * 0.5f), 1), new Vector2(0,0)),
             new TexturedVertex(new Vector4(centro.X - (cx * 0.3f), centro.Y - (cy * 0.9f), centro.Z - (cz * 0.2f), 1), new Vector2(w,h)),
+        
             new TexturedVertex(new Vector4(centro.X - (cx * 0.3f), centro.Y - (cy * 0.9f), centro.Z - (cz * 0.2f), 1), new Vector2(w,h)),
             new TexturedVertex(new Vector4(centro.X - (cx * 0.3f), centro.Y -  cy,         centro.Z + (cz * 0.5f), 1), new Vector2(0,0)),
             new TexturedVertex(new Vector4(centro.X - (cx * 0.3f), centro.Y -  cy,         centro.Z - (cz * 0.2f), 1), new Vector2(0,h)),
@@ -257,6 +253,18 @@ namespace Tarea6_ScaleRotationTraslation.Models.RobotPartes.Extremidades
 
             };
         }
+
+        #region Scale
+
+        public override void setScale(float s, bool plus)
+        {
+            Scale = (plus) ? new Vector3(Scale.X * 1.1f, Scale.Y * 1.1f, Scale.Z * 1.1f)
+                            : new Vector3(Scale.X * 0.9f, Scale.Y * 0.9f, Scale.Z * 0.9f);
+        }
+        #endregion
+
+        #region Rotation
+
         public override void MoverX(bool plus)
         {
             if (plus)
@@ -280,6 +288,26 @@ namespace Tarea6_ScaleRotationTraslation.Models.RobotPartes.Extremidades
             else
                 Position = new Vector3(Position.X, Position.Y, Position.Z - 0.1f);
         }
+        
+
+        public override void MoverX(float val)
+        {
+            Position = new Vector3(Position.X + val, Position.Y, Position.Z);
+        }
+
+        public override void MoverY(float val)
+        {
+            Position = new Vector3(Position.X, Position.Y + val, Position.Z);
+        }
+
+        public override void MoverZ(float val)
+        {
+            Position = new Vector3(Position.X, Position.Y, Position.Z + val);
+        }
+        #endregion
+
+
+        #region Rotation
         public override void RotateX(bool dir)
         {
             if (dir)
@@ -315,21 +343,7 @@ namespace Tarea6_ScaleRotationTraslation.Models.RobotPartes.Extremidades
                                     Matrix4.CreateRotationZ(Rotation.Z - 0.1f);
         }
 
-        public override void MoverX(float val)
-        {
-            Position = new Vector3(Position.X + val, Position.Y, Position.Z);
-        }
+        #endregion
 
-        public override void MoverY(float val)
-        {
-            Position = new Vector3(Position.X, Position.Y + val, Position.Z);
-        }
-
-        public override void MoverZ(float val)
-        {
-            Position = new Vector3(Position.X, Position.Y, Position.Z + val);
-        }
     }
-    
-
 }

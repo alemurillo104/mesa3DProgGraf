@@ -89,12 +89,16 @@ namespace App.Models
                 i++;
             }
         }
+        #region Scale
 
         public override void setScale(float scale1, bool plus)
         {
             foreach (DictionaryEntry parte in partes)
                 partes.Get(parte.Key).setScale(scale1, plus);
         }
+        #endregion 
+
+        #region Rotation
 
         public override void RotateX(bool plus)
         {
@@ -113,6 +117,9 @@ namespace App.Models
             foreach (DictionaryEntry parte in partes)
                 partes.Get(parte.Key).RotateZ(dir);
         }
+        #endregion 
+
+        #region Position
 
         public override void MoverX(bool plus)
         {
@@ -132,22 +139,6 @@ namespace App.Models
                 partes.Get(parte.Key).MoverZ(plus);
         }
 
-        public void MoverO()
-        {
-            foreach (DictionaryEntry parte in partes)
-                partes.Get(parte.Key).RotateY(true);
-        }
-
-        public void MoverPosi(bool plus)
-        {
-            foreach (DictionaryEntry parte in partes)
-                partes.Get(parte.Key).RotateZ(plus);
-        }
-
-        public override void CalculateModelMatrix()
-        {
-        }
-
         public override void MoverX(float val)
         {
             foreach (DictionaryEntry parte in partes)
@@ -165,6 +156,12 @@ namespace App.Models
             foreach (DictionaryEntry parte in partes)
                 partes.Get(parte.Key).MoverZ(val);
         }
+
+        #endregion 
+
+     
+        public override void CalculateModelMatrix(){}
+
     }
 
 

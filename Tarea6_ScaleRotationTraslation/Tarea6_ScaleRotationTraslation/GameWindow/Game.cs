@@ -68,7 +68,7 @@ namespace App
             base.OnRenderFrame(e);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            GL.UseProgram(ShaderProgram2.Instance.Id);
+            GL.UseProgram(ShaderProgram.Instance.Id);
             GL.UniformMatrix4(20, false, ref _projectionMatrix);
 
             //render objetos
@@ -90,8 +90,6 @@ namespace App
             Matrix4 rY = Matrix4.CreateRotationY(-0.5f);
 
             _projectionMatrix = cam.GetViewMatrix()  * tras * Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4, Width / Height, 1.0f, 200.0f);
-            //_projectionMatrix = cam.GetViewMatrix() * tras * rY * Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4, Width / Height, 1.0f, 200.0f);
-
         }
 
 
@@ -100,7 +98,7 @@ namespace App
         public override void Exit()
         {
             Debug.WriteLine("Exit called");
-            ShaderProgram2.Instance.Dispose();
+            ShaderProgram.Instance.Dispose();
             base.Exit();
         }
 

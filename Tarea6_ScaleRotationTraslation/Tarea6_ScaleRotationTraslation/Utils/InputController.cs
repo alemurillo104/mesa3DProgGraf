@@ -18,6 +18,7 @@ namespace App.Utils
         //Movimientos del teclado
         public void processControls(KeyboardState ks, Camera camera, Scene scene)
         {
+            #region Silla
             //Silla s
             Figura fs = scene.objects.Get("silla");
 
@@ -30,15 +31,6 @@ namespace App.Utils
             if (ks.IsKeyDown(Key.I)) fs.MoverY(true);
             if (ks.IsKeyDown(Key.K)) fs.MoverY(false);
 
-            /*
-            if (ks.IsKeyDown(Key.O))
-            {
-                var ant = fs.Position;
-                Console.Write(ant.X.ToString() + " "+ ant.Y.ToString() + " "+ ant.Z.ToString());
-                fs.RotateY(true); //lo mueve al 0,0,0
-                fs.RotateX(true);
-                 //s.MoverPosi(true);
-            }*/
             if (ks.IsKeyDown(Key.O)) fs.RotateX(true);
 
             if (ks.IsKeyDown(Key.P)) fs.RotateX(false);
@@ -48,6 +40,9 @@ namespace App.Utils
                                           
             if (ks.IsKeyDown(Key.Number9)) fs.RotateZ(true);
             if (ks.IsKeyDown(Key.Number0)) fs.RotateZ(false);
+            #endregion
+
+            #region Mesa
 
             //Mesa m
             Figura ms = scene.objects.Get("mesa");
@@ -70,13 +65,17 @@ namespace App.Utils
             if (ks.IsKeyDown(Key.Number3)) ms.RotateZ(true);
             if (ks.IsKeyDown(Key.Number4)) ms.RotateZ(false);*/
 
+            #endregion
+
+            #region Robot
+
             //Robot r
             Figura rs = scene.objects.Get("robot");
 
             if (ks.IsKeyDown(Key.N)) rs.setScale(1, true);
             if (ks.IsKeyDown(Key.M)) rs.setScale(1, false);
                                       
-                if (ks.IsKeyDown(Key.C)) rs.MoverX(true);
+            if (ks.IsKeyDown(Key.C)) rs.MoverX(true);
             if (ks.IsKeyDown(Key.B)) rs.MoverX(false);
                                       
             if (ks.IsKeyDown(Key.F)) rs.MoverY(true);
@@ -93,6 +92,10 @@ namespace App.Utils
             if (ks.IsKeyDown(Key.Number4)) rs.RotateZ(false);
             */
 
+            #endregion
+
+            #region Scene
+
             //Scene
 
             if (ks.IsKeyDown(Key.Keypad1)) scene.MoverX(true);
@@ -102,7 +105,7 @@ namespace App.Utils
             if (ks.IsKeyDown(Key.Keypad0)) scene.MoverY(false);
 
             if (ks.IsKeyDown(Key.KeypadPeriod)) scene.setScale(1, true);
-            if (ks.IsKeyDown(Key.KeypadEnter)) scene.setScale(1, false);
+            if (ks.IsKeyDown(Key.KeypadEnter))  scene.setScale(1, false);
 
             if (ks.IsKeyDown(Key.Q))       scene.RotateX(true);
             if (ks.IsKeyDown(Key.E))       scene.RotateX(false);
@@ -113,6 +116,7 @@ namespace App.Utils
             if (ks.IsKeyDown(Key.Number3)) scene.RotateZ(true);
             if (ks.IsKeyDown(Key.Number4)) scene.RotateZ(false);
 
+            #endregion
 
             if (ks.IsKeyDown(Key.Keypad8))
             {

@@ -81,31 +81,6 @@ namespace App.Models
 
         }
 
-        public void cargarPartes2(float anchoX, float altoY, float profZ)
-        {
-
-            RBody t = new RBody(centro, anchoX, altoY, profZ);
-            RHead h = new RHead(centro, anchoX, altoY, profZ);
-
-            LeftArm lfa = new LeftArm(centro, anchoX, altoY, profZ);
-            //RightArm ra = new RightArm(new Vector3(centro.X + 0.0075f, centro.Y, centro.Z), anchoX, altoY, profZ);
-            RightArm ra = new RightArm(new Vector3(centro.X + 0.05f, centro.Y, centro.Z), anchoX, altoY, profZ);
-
-            LeftLeg lflg = new LeftLeg(centro, anchoX, altoY, profZ);
-            //RightLeg rlg = new RightLeg(new Vector3(centro.X + 0.0075f, centro.Y, centro.Z), anchoX, altoY, profZ);
-            RightLeg rlg = new RightLeg(new Vector3(centro.X + 0.033f, centro.Y, centro.Z), anchoX, altoY, profZ);
-            //RightLeg rlg = new RightLeg(new Vector3(centro.X + 0.05f), anchoX, altoY, profZ); // posicion para caminar, pie alzado se muestra, probalo
-
-            partes.Add("body", t);
-            partes.Add("head", h);
-
-            partes.Add("leftarm", lfa);
-            partes.Add("rightarm", ra);
-          
-            partes.Add("leftleg", lflg);
-            partes.Add("rightleg", rlg);
-        }
-
         public void cargarRenderObjects()
         {
             var s = ShaderManager.Instance;
@@ -121,25 +96,6 @@ namespace App.Models
             }
         }
 
-        public override void CalculateModelMatrix(){}
-
-        public override void setScale(float scale1, bool plus)
-        {
-            foreach (DictionaryEntry parte in partes)
-            {
-                if(parte.Key.ToString() == "rightarm")
-                {
-                    partes.Get(parte.Key).setScale(scale1, plus);
-                    Console.Write(partes.Get(parte.Key).Position);
-                }
-                else
-                {
-                    partes.Get(parte.Key).setScale(scale1, plus);
-
-                }
-
-            }
-        }
 
         public override void renderPartes()
         {
@@ -153,6 +109,18 @@ namespace App.Models
                 i++;
             }
         }
+
+        #region Scale
+        public override void CalculateModelMatrix(){}
+
+        public override void setScale(float scale1, bool plus)
+        {
+            foreach (DictionaryEntry parte in partes)
+                partes.Get(parte.Key).setScale(scale1, plus);
+        }
+        #endregion
+
+        #region Position
 
         public override void MoverX(bool plus)
         {
@@ -172,29 +140,6 @@ namespace App.Models
                 partes.Get(parte.Key).MoverZ(plus);
         }
 
-        public override void RotateX(bool dir)
-        {
-            foreach (DictionaryEntry parte in partes) 
-                partes.Get(parte.Key).RotateX(dir);
-        }
-
-        public override void RotateY(bool dir)
-        {
-            foreach (DictionaryEntry parte in partes)
-            {
-                partes.Get(parte.Key).RotateY(dir);
-                if (parte.Key.ToString() == "rightArmS") // rotar el brazo derecho 
-                {
-
-                }
-            }
-        }
-
-        public override void RotateZ(bool dir)
-        {
-            foreach (DictionaryEntry parte in partes)
-                partes.Get(parte.Key).RotateZ(dir);
-        }
 
         public override void MoverX(float val)
         {
@@ -213,5 +158,30 @@ namespace App.Models
             foreach (DictionaryEntry parte in partes)
                 partes.Get(parte.Key).MoverZ(val);
         }
+
+        #endregion
+
+        #region Rotation
+
+        public override void RotateX(bool dir)
+        {
+            foreach (DictionaryEntry parte in partes) 
+                partes.Get(parte.Key).RotateX(dir);
+        }
+
+        public override void RotateY(bool dir)
+        {
+            foreach (DictionaryEntry parte in partes)
+                partes.Get(parte.Key).RotateY(dir);
+        }
+
+        public override void RotateZ(bool dir)
+        {
+            foreach (DictionaryEntry parte in partes)
+                partes.Get(parte.Key).RotateZ(dir);
+        }
+        #endregion
+
+       
     }
 }

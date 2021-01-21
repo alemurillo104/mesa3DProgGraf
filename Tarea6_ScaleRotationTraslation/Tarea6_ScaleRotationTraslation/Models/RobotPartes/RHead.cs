@@ -25,109 +25,6 @@ namespace App.Models.RobotPartes
 
         }
 
-        public override Vertex[] GetVerts()
-        {
-            return new Vertex[]
-            {
-                //Frente
-                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y +  cy,         centro.Z + (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y + (cy * 0.5f), centro.Z + (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y + (cy * 0.5f), centro.Z + (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y + (cy * 0.5f), centro.Z + (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y +  cy,         centro.Z + (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y +  cy,         centro.Z + (cz * 0.4f), 1), color),
-
-                 //Atras
-                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y + cy,          centro.Z - (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y + (cy * 0.5f), centro.Z - (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y + (cy * 0.5f), centro.Z - (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y + (cy * 0.5f), centro.Z - (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y + cy,          centro.Z - (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y + cy,          centro.Z - (cz * 0.4f), 1), color),
-
-                //Izquierda
-                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y +  cy,         centro.Z + (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y + (cy * 0.5f), centro.Z + (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y +  cy,         centro.Z - (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y +  cy,         centro.Z - (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y + (cy * 0.5f), centro.Z + (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y + (cy * 0.5f), centro.Z - (cz * 0.4f), 1), color),
-
-                //Derecha
-                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y +  cy,         centro.Z + (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y + (cy * 0.5f), centro.Z + (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y +  cy,         centro.Z - (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y +  cy,         centro.Z - (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y + (cy * 0.5f), centro.Z + (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y + (cy * 0.5f), centro.Z - (cz * 0.4f), 1), color),
-
-                //Arriba
-                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y +  cy, centro.Z + (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y +  cy, centro.Z + (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y +  cy, centro.Z - (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y +  cy, centro.Z - (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y +  cy, centro.Z + (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y +  cy, centro.Z - (cz * 0.4f), 1), color),
-
-                //Abajo
-                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y +  (cy * 0.5f), centro.Z + (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y +  (cy * 0.5f), centro.Z + (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y +  (cy * 0.5f), centro.Z - (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y +  (cy * 0.5f), centro.Z - (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y +  (cy * 0.5f), centro.Z + (cz * 0.4f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y +  (cy * 0.5f), centro.Z - (cz * 0.4f), 1), color),
-
-                //Cuello
-
-                //Frente 
-                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.5f), centro.Z + (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z + (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z + (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z + (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.5f), centro.Z + (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.5f), centro.Z + (cz * 0.1f), 1), color),
-
-                 //Atras 
-                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.5f), centro.Z - (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z - (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z - (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z - (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.5f), centro.Z - (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.5f), centro.Z - (cz * 0.1f), 1), color),
-
-                //Izq 
-                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.5f), centro.Z + (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z + (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.5f), centro.Z - (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.5f), centro.Z - (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z + (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z - (cz * 0.1f), 1), color),
-
-                 //Der
-                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.5f), centro.Z + (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z + (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.5f), centro.Z - (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.5f), centro.Z - (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z + (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z - (cz * 0.1f), 1), color),
-
-                //Abajo 
-                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z + (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z + (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z - (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z - (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z + (cz * 0.1f), 1), color),
-                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z - (cz * 0.1f), 1), color),
-            };
-
-        }
-
-        public override void setScale(float s, bool plus)
-        {
-            Scale = (plus) ? new Vector3(Scale.X * 1.1f, Scale.Y * 1.1f, Scale.Z * 1.1f)
-                           : new Vector3(Scale.X * 0.9f, Scale.Y * 0.9f, Scale.Z * 0.9f);
-        }
-
         public override void CalculateModelMatrix()
         {
             ModelMatrix = Matrix4.CreateScale(Scale) *
@@ -233,6 +130,113 @@ namespace App.Models.RobotPartes
             };
         }
 
+        public override Vertex[] GetVerts()
+        {
+            return new Vertex[]
+            {
+                //Frente
+                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y +  cy,         centro.Z + (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y + (cy * 0.5f), centro.Z + (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y + (cy * 0.5f), centro.Z + (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y + (cy * 0.5f), centro.Z + (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y +  cy,         centro.Z + (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y +  cy,         centro.Z + (cz * 0.4f), 1), color),
+
+                 //Atras
+                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y + cy,          centro.Z - (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y + (cy * 0.5f), centro.Z - (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y + (cy * 0.5f), centro.Z - (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y + (cy * 0.5f), centro.Z - (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y + cy,          centro.Z - (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y + cy,          centro.Z - (cz * 0.4f), 1), color),
+
+                //Izquierda
+                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y +  cy,         centro.Z + (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y + (cy * 0.5f), centro.Z + (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y +  cy,         centro.Z - (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y +  cy,         centro.Z - (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y + (cy * 0.5f), centro.Z + (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y + (cy * 0.5f), centro.Z - (cz * 0.4f), 1), color),
+
+                //Derecha
+                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y +  cy,         centro.Z + (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y + (cy * 0.5f), centro.Z + (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y +  cy,         centro.Z - (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y +  cy,         centro.Z - (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y + (cy * 0.5f), centro.Z + (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y + (cy * 0.5f), centro.Z - (cz * 0.4f), 1), color),
+
+                //Arriba
+                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y +  cy, centro.Z + (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y +  cy, centro.Z + (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y +  cy, centro.Z - (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y +  cy, centro.Z - (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y +  cy, centro.Z + (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y +  cy, centro.Z - (cz * 0.4f), 1), color),
+
+                //Abajo
+                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y +  (cy * 0.5f), centro.Z + (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y +  (cy * 0.5f), centro.Z + (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y +  (cy * 0.5f), centro.Z - (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X - (cx * 0.5f), centro.Y +  (cy * 0.5f), centro.Z - (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y +  (cy * 0.5f), centro.Z + (cz * 0.4f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.5f), centro.Y +  (cy * 0.5f), centro.Z - (cz * 0.4f), 1), color),
+
+                //Cuello
+
+                //Frente 
+                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.5f), centro.Z + (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z + (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z + (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z + (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.5f), centro.Z + (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.5f), centro.Z + (cz * 0.1f), 1), color),
+
+                 //Atras 
+                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.5f), centro.Z - (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z - (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z - (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z - (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.5f), centro.Z - (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.5f), centro.Z - (cz * 0.1f), 1), color),
+
+                //Izq 
+                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.5f), centro.Z + (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z + (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.5f), centro.Z - (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.5f), centro.Z - (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z + (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z - (cz * 0.1f), 1), color),
+
+                 //Der
+                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.5f), centro.Z + (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z + (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.5f), centro.Z - (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.5f), centro.Z - (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z + (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z - (cz * 0.1f), 1), color),
+
+                //Abajo 
+                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z + (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z + (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z - (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X - (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z - (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z + (cz * 0.1f), 1), color),
+                new Vertex(new Vector4(centro.X + (cx * 0.1f), centro.Y + (cy * 0.4f), centro.Z - (cz * 0.1f), 1), color),
+            };
+
+        }
+        
+        #region Scale
+        public override void setScale(float s, bool plus)
+        {
+            Scale = (plus) ? new Vector3(Scale.X * 1.1f, Scale.Y * 1.1f, Scale.Z * 1.1f)
+                           : new Vector3(Scale.X * 0.9f, Scale.Y * 0.9f, Scale.Z * 0.9f);
+        }
+        #endregion
+
+        #region Position
+
         public override void MoverX(bool plus)
         {
             if (plus)
@@ -257,6 +261,26 @@ namespace App.Models.RobotPartes
                 Position = new Vector3(Position.X, Position.Y, Position.Z - 0.1f);
         }
 
+
+        public override void MoverX(float val)
+        {
+            Position = new Vector3(Position.X + val, Position.Y, Position.Z);
+        }
+
+        public override void MoverY(float val)
+        {
+            Position = new Vector3(Position.X, Position.Y + val, Position.Z);
+        }
+
+        public override void MoverZ(float val)
+        {
+            Position = new Vector3(Position.X, Position.Y, Position.Z + val);
+        }
+
+        #endregion
+
+        #region Rotation
+ 
         public override void RotateX(bool dir)
         {
             if (dir)
@@ -291,21 +315,8 @@ namespace App.Models.RobotPartes
                                   Matrix4.CreateRotationY(Rotation.Y) *
                                   Matrix4.CreateRotationZ(Rotation.Z - 0.1f);
         }
+        #endregion
 
-        public override void MoverX(float val)
-        {
-            Position = new Vector3(Position.X + val, Position.Y, Position.Z);
-        }
-
-        public override void MoverY(float val)
-        {
-            Position = new Vector3(Position.X, Position.Y + val, Position.Z);
-        }
-
-        public override void MoverZ(float val)
-        {
-            Position = new Vector3(Position.X, Position.Y, Position.Z + val);
-        }
     }
 }                                                                                                                          
                                                                                                                            

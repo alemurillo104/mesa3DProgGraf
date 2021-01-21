@@ -19,7 +19,7 @@ namespace Tarea6_ScaleRotationTraslation.RCommon
 
         public string path = @"D:\\UNIVERSIDAD\\SEMESTRE VIRTUAL\\SEMESTRE II-2020\\Grafica\\TAREA PRESENTADA\\Tarea6_ScaleRotationTraslation\\Tarea6_ScaleRotationTraslation\\Utils\\images\";
 
-        public Dictionary<string, ShaderProgram2> shaders = new Dictionary<string, ShaderProgram2>();
+        public Dictionary<string, ShaderProgram> shaders = new Dictionary<string, ShaderProgram>();
 
         public string activeShader = "textured";
 
@@ -27,11 +27,11 @@ namespace Tarea6_ScaleRotationTraslation.RCommon
         {
             shaders.Add(
                 key: "default",
-                value: new ShaderProgram2( "vs.glsl", "fg.glsl"));
+                value: new ShaderProgram( "vs.glsl", "fg.glsl"));
 
             shaders.Add(
                 key: "textured",
-                value: new ShaderProgram2("vs2.glsl", "fg2.glsl"));
+                value: new ShaderProgram("vs2.glsl", "fg2.glsl"));
      
         }
 

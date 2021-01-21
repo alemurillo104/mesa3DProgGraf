@@ -24,6 +24,13 @@ namespace App.Models.RobotPartes
             this.color = Color4.HotPink;
         }
 
+        public override void CalculateModelMatrix()
+        {
+            ModelMatrix = Matrix4.CreateScale(Scale) *
+                         matriXRotation*
+                          Matrix4.CreateTranslation(Position);
+        }
+
         public override Vertex[] GetVerts()
         {
             return new Vertex[]
@@ -96,20 +103,6 @@ namespace App.Models.RobotPartes
         }
 
 
-        public override void setScale(float s, bool plus)
-        {
-            Scale = (plus) ? new Vector3(Scale.X * 1.1f, Scale.Y * 1.1f, Scale.Z * 1.1f)
-                           : new Vector3(Scale.X * 0.9f, Scale.Y * 0.9f, Scale.Z * 0.9f);
-
-        }
-
-        public override void CalculateModelMatrix()
-        {
-            ModelMatrix = Matrix4.CreateScale(Scale) *
-                         matriXRotation*
-                          Matrix4.CreateTranslation(Position);
-        }
-
         public override TexturedVertex[] GetVerts2()
         {
             float h = 256, w = 256;
@@ -164,6 +157,17 @@ namespace App.Models.RobotPartes
                 new TexturedVertex(new Vector4(centro.X + (cx * 0.5f), centro.Y - (cy * 0.5f), centro.Z + ( cz * 0.4f), 1), new Vector2(w,0)),
             };
         }
+        
+        #region Scale
+        public override void setScale(float s, bool plus)
+        {
+            Scale = (plus) ? new Vector3(Scale.X * 1.1f, Scale.Y * 1.1f, Scale.Z * 1.1f)
+                           : new Vector3(Scale.X * 0.9f, Scale.Y * 0.9f, Scale.Z * 0.9f);
+        }
+        #endregion
+
+        #region Position
+
         public override void MoverX(bool plus)
         {
             if (plus)
@@ -187,6 +191,27 @@ namespace App.Models.RobotPartes
             else
                 Position = new Vector3(Position.X, Position.Y, Position.Z - 0.1f);
         }
+     
+
+        public override void MoverX(float val)
+        {
+            Position = new Vector3(Position.X + val, Position.Y, Position.Z);
+        }
+
+        public override void MoverY(float val)
+        {
+            Position = new Vector3(Position.X, Position.Y + val, Position.Z);
+        }
+
+        public override void MoverZ(float val)
+        {
+            Position = new Vector3(Position.X, Position.Y, Position.Z + val);
+        }
+
+        #endregion
+
+        #region Rotation
+
         public override void RotateX(bool dir)
         {
             if (dir)
@@ -222,19 +247,6 @@ namespace App.Models.RobotPartes
                                   Matrix4.CreateRotationZ(Rotation.Z - 0.1f);
         }
 
-        public override void MoverX(float val)
-        {
-            Position = new Vector3(Position.X + val, Position.Y, Position.Z);
-        }
-
-        public override void MoverY(float val)
-        {
-            Position = new Vector3(Position.X, Position.Y + val, Position.Z);
-        }
-
-        public override void MoverZ(float val)
-        {
-            Position = new Vector3(Position.X, Position.Y, Position.Z + val);
-        }
+        #endregion
     }
 }

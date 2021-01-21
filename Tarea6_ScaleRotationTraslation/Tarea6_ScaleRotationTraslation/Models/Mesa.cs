@@ -86,21 +86,10 @@ namespace App.Models
             }
         }
 
-        public override void setScale(float scale1, bool plus)
-        {
-            foreach (DictionaryEntry parte in partes)
-            {
-                partes.Get(parte.Key).setScale(scale1, plus);
-                partes.Get(parte.Key).CalculateModelMatrix();
-            }
-        }
 
         public override void CalculateModelMatrix()
         {
-            Console.Write("estoy en el calculate model matrix we");
-
-            //DEBERIA MODIFICAR LA POSICION EN LA PARTE PORQUE LUEGO SE COMPLICA CUANDO ES MAS DE UNA PARTE WE
-            //Pero esta bien, le estas entendiendo,  y eso esta super, ANIMOS ALE!
+            //MODIFICAR LA POSICION EN LA PARTE 
 
             Position = new Vector3(Position.X, Position.Y + 0.092f, Position.Z - 2.4f);
 
@@ -111,6 +100,18 @@ namespace App.Models
                          Matrix4.CreateTranslation(Position);
         }
 
+        #region Scale
+        public override void setScale(float scale1, bool plus)
+        {
+            foreach (DictionaryEntry parte in partes)
+            {
+                partes.Get(parte.Key).setScale(scale1, plus);
+                partes.Get(parte.Key).CalculateModelMatrix();
+            }
+        }
+        #endregion
+
+        #region Position
         public override void MoverX(bool plus)
         {
             foreach (DictionaryEntry parte in partes)
@@ -129,26 +130,6 @@ namespace App.Models
                 partes.Get(parte.Key).MoverZ(plus);
         }
 
-        public override void RotateX(bool dir)
-        {
-            foreach (DictionaryEntry parte in partes)
-                partes.Get(parte.Key).RotateX(dir);
-        }
-
-        public override void RotateY(bool dir)
-        {
-            foreach (DictionaryEntry parte in partes)
-                partes.Get(parte.Key).RotateY(dir);
-        }
-
-        public override void RotateZ(bool dir)
-        {
-            foreach (DictionaryEntry parte in partes)
-                partes.Get(parte.Key).RotateZ(dir);
-        }
-        
-        //habra un problema, porque no se podra actualizar el estado del Objeto si pasa de estar con textura a no estarlo, CREO.
-        public void setTexturedId(string id) => this.textureId = id;
 
         public override void MoverX(float val)
         {
@@ -167,6 +148,30 @@ namespace App.Models
             foreach (DictionaryEntry parte in partes)
                 partes.Get(parte.Key).MoverZ(val);
         }
+        #endregion 
+
+        #region Rotation
+
+        public override void RotateX(bool dir)
+        {
+            foreach (DictionaryEntry parte in partes)
+                partes.Get(parte.Key).RotateX(dir);
+        }
+
+        public override void RotateY(bool dir)
+        {
+            foreach (DictionaryEntry parte in partes)
+                partes.Get(parte.Key).RotateY(dir);
+        }
+
+        public override void RotateZ(bool dir)
+        {
+            foreach (DictionaryEntry parte in partes)
+                partes.Get(parte.Key).RotateZ(dir);
+        }
+        #endregion 
+
+      
     }
 }
 
