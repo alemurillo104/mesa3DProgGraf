@@ -124,16 +124,14 @@ namespace App.Models.RobotPartes
 
         public override void setScale(float s, bool plus)
         {
-            Scale = (plus) ? new Vector3(Scale.X * 1.1f, Scale.Y * 1.1f, Scale.Z)
-                           : new Vector3(Scale.X * 0.9f, Scale.Y * 0.9f, Scale.Z);
+            Scale = (plus) ? new Vector3(Scale.X * 1.1f, Scale.Y * 1.1f, Scale.Z * 1.1f)
+                           : new Vector3(Scale.X * 0.9f, Scale.Y * 0.9f, Scale.Z * 0.9f);
         }
 
         public override void CalculateModelMatrix()
         {
             ModelMatrix = Matrix4.CreateScale(Scale) *
-                          Matrix4.CreateRotationX(Rotation.X) *
-                          Matrix4.CreateRotationY(Rotation.Y) *
-                          Matrix4.CreateRotationZ(Rotation.Z) *
+                          matriXRotation*
                           Matrix4.CreateTranslation(Position);
         }
 
@@ -261,19 +259,54 @@ namespace App.Models.RobotPartes
 
         public override void RotateX(bool dir)
         {
-            throw new NotImplementedException();
+            if (dir)
+                matriXRotation *= Matrix4.CreateRotationX(Rotation.X + 0.1f) *
+                                  Matrix4.CreateRotationY(Rotation.Y) *
+                                  Matrix4.CreateRotationZ(Rotation.Z);
+            else
+                matriXRotation *= Matrix4.CreateRotationX(Rotation.X - 0.1f) *
+                                  Matrix4.CreateRotationY(Rotation.Y) *
+                                  Matrix4.CreateRotationZ(Rotation.Z);
         }
 
         public override void RotateY(bool dir)
         {
-            throw new NotImplementedException();
+            if (dir)
+                matriXRotation *= Matrix4.CreateRotationX(Rotation.X) *
+                                  Matrix4.CreateRotationY(Rotation.Y + 0.1f) *
+                                  Matrix4.CreateRotationZ(Rotation.Z);
+            else
+                matriXRotation *= Matrix4.CreateRotationX(Rotation.X) *
+                                  Matrix4.CreateRotationY(Rotation.Y - 0.1f) *
+                                  Matrix4.CreateRotationZ(Rotation.Z);
         }
-
         public override void RotateZ(bool dir)
         {
-            throw new NotImplementedException();
+            if (dir)
+                matriXRotation *= Matrix4.CreateRotationX(Rotation.X) *
+                                  Matrix4.CreateRotationY(Rotation.Y) *
+                                  Matrix4.CreateRotationZ(Rotation.Z + 0.1f);
+            else
+                matriXRotation *= Matrix4.CreateRotationX(Rotation.X) *
+                                  Matrix4.CreateRotationY(Rotation.Y) *
+                                  Matrix4.CreateRotationZ(Rotation.Z - 0.1f);
         }
-    }                                                                                                                      
+
+        public override void MoverX(float val)
+        {
+            Position = new Vector3(Position.X + val, Position.Y, Position.Z);
+        }
+
+        public override void MoverY(float val)
+        {
+            Position = new Vector3(Position.X, Position.Y + val, Position.Z);
+        }
+
+        public override void MoverZ(float val)
+        {
+            Position = new Vector3(Position.X, Position.Y, Position.Z + val);
+        }
+    }
 }                                                                                                                          
                                                                                                                            
                                                                                                                            

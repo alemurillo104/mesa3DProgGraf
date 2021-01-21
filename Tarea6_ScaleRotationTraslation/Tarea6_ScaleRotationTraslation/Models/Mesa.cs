@@ -17,7 +17,8 @@ namespace App.Models
 
         public Mesa()
         {
-            this.centro = new Vector3(0f, 0.092f, -2.8f);
+            this.centro = new Vector3(0f, 0f, 0f);
+         //   this.centro = new Vector3(0f, 0.092f, -2.8f);
 
             this.Position = centro;
 
@@ -96,6 +97,13 @@ namespace App.Models
 
         public override void CalculateModelMatrix()
         {
+            Console.Write("estoy en el calculate model matrix we");
+
+            //DEBERIA MODIFICAR LA POSICION EN LA PARTE PORQUE LUEGO SE COMPLICA CUANDO ES MAS DE UNA PARTE WE
+            //Pero esta bien, le estas entendiendo,  y eso esta super, ANIMOS ALE!
+
+            Position = new Vector3(Position.X, Position.Y + 0.092f, Position.Z - 2.4f);
+
             ModelMatrix = Matrix4.CreateScale(Scale) *
                          Matrix4.CreateRotationX(Rotation.X) *
                          Matrix4.CreateRotationY(Rotation.Y) *
@@ -142,7 +150,23 @@ namespace App.Models
         //habra un problema, porque no se podra actualizar el estado del Objeto si pasa de estar con textura a no estarlo, CREO.
         public void setTexturedId(string id) => this.textureId = id;
 
+        public override void MoverX(float val)
+        {
+            foreach (DictionaryEntry parte in partes)
+                partes.Get(parte.Key).MoverX(val);
+        }
 
+        public override void MoverY(float val)
+        {
+            foreach (DictionaryEntry parte in partes)
+                partes.Get(parte.Key).MoverY(val);
+        }
+
+        public override void MoverZ(float val)
+        {
+            foreach (DictionaryEntry parte in partes)
+                partes.Get(parte.Key).MoverZ(val);
+        }
     }
 }
 

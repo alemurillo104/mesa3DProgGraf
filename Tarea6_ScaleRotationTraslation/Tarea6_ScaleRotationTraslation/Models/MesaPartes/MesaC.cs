@@ -8,6 +8,7 @@ namespace Tarea6_ScaleRotationTraslation.Models.MesaPartes
 {
     class MesaC : Parte
     {
+        float time = 0f;
         public MesaC(Vector3 centro, float anchoX, float altoY, float profZ)
         {
             this.centro = centro;
@@ -236,14 +237,14 @@ namespace Tarea6_ScaleRotationTraslation.Models.MesaPartes
                 new Vertex(new Vector4(centro.X + cx,        centro.Y - cy, centro.Z - cz * 0.6f, 1),color),
                 new Vertex(new Vector4(centro.X + cx * 0.8f, centro.Y - cy, centro.Z - cz * 0.6f, 1),color),
 
-             
+
             };
         }
 
         public override TexturedVertex[] GetVerts2()
         {
             float h = 256, w = 256;
-            return new TexturedVertex[] 
+            return new TexturedVertex[]
             {
                   //Tablon
                 //Frente
@@ -488,43 +489,99 @@ namespace Tarea6_ScaleRotationTraslation.Models.MesaPartes
         public override void setScale(float s, bool plus)
         {
             if (plus)
-                Scale = new Vector3(Scale.X * 1.1f, Scale.Y * 1.1f, Scale.Z);
+                Scale = new Vector3(Scale.X * 1.1f, Scale.Y * 1.1f, Scale.Z * 1.1f);
             else
-                Scale = new Vector3(Scale.X * 0.9f, Scale.Y * 0.9f, Scale.Z);
+                Scale = new Vector3(Scale.X * 0.9f, Scale.Y * 0.9f, Scale.Z * 0.9f);
         }
 
         public override void CalculateModelMatrix()
         {
-            ModelMatrix = Matrix4.CreateScale(Scale) *
-                          Matrix4.CreateRotationX(Rotation.X) *
-                          Matrix4.CreateRotationY(Rotation.Y) *
-                          Matrix4.CreateRotationZ(Rotation.Z) *
-                          Matrix4.CreateTranslation(Position);
-        }
 
+            Matrix4 sca = Matrix4.CreateScale(Scale);
+            /*Matrix4 rotx = Matrix4.CreateRotationX(Rotation.X);
+            Matrix4 roty = Matrix4.CreateRotationY(Rotation.Y);
+            Matrix4 rotz = Matrix4.CreateRotationZ(Rotation.Z);
+            */
+            Matrix4 tr = Matrix4.CreateTranslation(Position);
+
+            ModelMatrix = sca * matriXRotation * tr;//aqui la posicion la estoy modificando we 
+                                                    //ModelMatrix = sca * rotx * roty * rotz * tr;
+
+        }
         public override void RotateX(bool dir)
         {
+            if (dir)
+                Rotation.X += 0.1f;
+            else
+                Rotation.X -= 0.1f;
+
+            CalculateRotation();
+        }
+        /*
+        public override void RotateX(bool dir)
+        {
+            Matrix4 aux = Matrix4.Identity;
+
+            Vector3 centro3 = Vector3.Zero;
+            Vector3 rotacion3;
+            if (dir)
+            {
+
+                rotacion3 = new Vector3(time, 0, 0);
+                time+=0.1f;
+            }
+            else
+            {
+                rotacion3 = new Vector3(time, 0, 0);
+                time -= 0.1f;
+
+            }
             Vector3 anterior = Position;
+            Matrix4 mm1= Matrix4.CreateTranslation(centro3) ;
+            Matrix4 mm2= Matrix4.CreateRotationX(MathHelper.DegreesToRadians(rotacion3.X));
+            Matrix4 mm3= Matrix4.CreateRotationY(MathHelper.DegreesToRadians(rotacion3.Y));
+            Matrix4 mm4= Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(rotacion3.Z));
+          //  Matrix4 mm5= Matrix4.CreateTranslation(anterior);
+            aux = mm1 * mm2 * mm3 * mm4 ;
 
+
+            /*
             if (dir) {
-
-                Position = Vector3.Zero;
-                Rotation.X += 0.1f/Scale.X;
-                Position = anterior;
+                
+                //Rotation = new Vector3(0.55f + time, 0 , 0);
+                //time += 0.1f;
+                
 
             } else {
-                Position = Vector3.Zero;
-                Rotation.X -=  0.1f/Scale.X;
-                Position = anterior;
-            }
-        }
-
+                Rotation.X -= 0.1f;
+                //Rotation = new Vector3(0.55f - time, 0 , 0);
+                //time-= 0.1f;
+            }*/
+        /*
+        matriXRotation = aux;
+    }
+*/
         public override void RotateY(bool dir)
         {
             if (dir)
                 Rotation.Y += 0.1f;
-            else
+            else 
                 Rotation.Y -= 0.1f;
+
+            CalculateRotation();
+        }
+
+        public void CalculateRotation()
+        {
+            Matrix4 auxX = Matrix4.CreateRotationX(Rotation.X);
+            Matrix4 auxY = Matrix4.CreateRotationY(Rotation.Y);
+            Matrix4 auxZ = Matrix4.CreateRotationZ(Rotation.Z);
+            /*
+            Matrix4 auxX = Matrix4.CreateRotationX(MathHelper.DegreesToRadians(Rotation.X));
+            Matrix4 auxY = Matrix4.CreateRotationY(MathHelper.DegreesToRadians(Rotation.Y));
+            Matrix4 auxZ = Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(Rotation.Z));*/
+            Matrix4 aux = auxX * auxY * auxZ;
+            matriXRotation = aux;
         }
 
         public override void RotateZ(bool dir)
@@ -533,6 +590,23 @@ namespace Tarea6_ScaleRotationTraslation.Models.MesaPartes
                 Rotation.Z += 0.1f;
             else           
                 Rotation.Z -= 0.1f;
+
+            CalculateRotation();
+        }
+
+        public override void MoverX(float val)
+        {
+            Position = new Vector3(Position.X + val, Position.Y, Position.Z);
+        }
+
+        public override void MoverY(float val)
+        {
+            Position = new Vector3(Position.X, Position.Y + val, Position.Z);
+        }
+
+        public override void MoverZ(float val)
+        {
+            Position = new Vector3(Position.X, Position.Y, Position.Z + val);
         }
     }
 }

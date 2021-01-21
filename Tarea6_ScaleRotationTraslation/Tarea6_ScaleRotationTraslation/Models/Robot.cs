@@ -7,6 +7,8 @@ using App.Estructura;
 using App.Classes;
 using Tarea6_ScaleRotationTraslation.RCommon;
 using System.Collections;
+using Tarea6_ScaleRotationTraslation.Models.RobotPartes;
+using Tarea6_ScaleRotationTraslation.Models.RobotPartes.Extremidades;
 
 namespace App.Models
 {
@@ -17,7 +19,8 @@ namespace App.Models
 
         public Robot()
         {
-            this.centro = new Vector3(0f, 0.53f, -2.7f);
+            //this.centro = new Vector3(0f, 0.53f, -2.7f);
+            this.centro = new Vector3(0f, 0f, 0f);
             this.Position = centro;
 
             float anchoX = 0.25f;
@@ -50,21 +53,20 @@ namespace App.Models
 
         }
 
-
         public void cargarPartes(float anchoX, float altoY, float profZ)
         {
             RBody t = new RBody(centro, anchoX, altoY, profZ);
             RHead h = new RHead(centro, anchoX, altoY, profZ);
-            RArmS as1 = new RArmS(centro, anchoX, altoY, profZ);
-            RArmI as2 = new RArmI(centro, anchoX, altoY, profZ);
-            RLegS ls1 = new RLegS(centro, anchoX, altoY, profZ);
-            RLegI ls2 = new RLegI(centro, anchoX, altoY, profZ);
 
+            LArmS as1 = new LArmS(centro, anchoX, altoY, profZ);
+            LArmI as2 = new LArmI(centro, anchoX, altoY, profZ);
+            LLegS ls1 = new LLegS(centro, anchoX, altoY, profZ);
+            LLegI ls2 = new LLegI(centro, anchoX, altoY, profZ);
 
-            RArmS as11 = new RArmS(new Vector3(centro.X + 0.075f, centro.Y, centro.Z), anchoX, altoY, profZ);
-            RArmI as22 = new RArmI(new Vector3(centro.X + 0.075f, centro.Y, centro.Z), anchoX, altoY, profZ);
-            RLegS ls11 = new RLegS(new Vector3(centro.X + 0.05f, centro.Y, centro.Z), anchoX, altoY, profZ);
-            RLegI ls22 = new RLegI(new Vector3(centro.X + 0.05f, centro.Y, centro.Z), anchoX, altoY, profZ);
+            RArmS as11 = new RArmS(centro, anchoX, altoY, profZ);
+            RArmI as22 = new RArmI(centro, anchoX, altoY, profZ);
+            RLegS ls11 = new RLegS(centro, anchoX, altoY, profZ);
+            RLegI ls22 = new RLegI(centro, anchoX, altoY, profZ);
 
             partes.Add("body", t);
             partes.Add("head", h);
@@ -77,6 +79,31 @@ namespace App.Models
             partes.Add("rightLegS", ls11);
             partes.Add("rightLegI", ls22);
 
+        }
+
+        public void cargarPartes2(float anchoX, float altoY, float profZ)
+        {
+
+            RBody t = new RBody(centro, anchoX, altoY, profZ);
+            RHead h = new RHead(centro, anchoX, altoY, profZ);
+
+            LeftArm lfa = new LeftArm(centro, anchoX, altoY, profZ);
+            //RightArm ra = new RightArm(new Vector3(centro.X + 0.0075f, centro.Y, centro.Z), anchoX, altoY, profZ);
+            RightArm ra = new RightArm(new Vector3(centro.X + 0.05f, centro.Y, centro.Z), anchoX, altoY, profZ);
+
+            LeftLeg lflg = new LeftLeg(centro, anchoX, altoY, profZ);
+            //RightLeg rlg = new RightLeg(new Vector3(centro.X + 0.0075f, centro.Y, centro.Z), anchoX, altoY, profZ);
+            RightLeg rlg = new RightLeg(new Vector3(centro.X + 0.033f, centro.Y, centro.Z), anchoX, altoY, profZ);
+            //RightLeg rlg = new RightLeg(new Vector3(centro.X + 0.05f), anchoX, altoY, profZ); // posicion para caminar, pie alzado se muestra, probalo
+
+            partes.Add("body", t);
+            partes.Add("head", h);
+
+            partes.Add("leftarm", lfa);
+            partes.Add("rightarm", ra);
+          
+            partes.Add("leftleg", lflg);
+            partes.Add("rightleg", rlg);
         }
 
         public void cargarRenderObjects()
@@ -99,7 +126,19 @@ namespace App.Models
         public override void setScale(float scale1, bool plus)
         {
             foreach (DictionaryEntry parte in partes)
-                partes.Get(parte.Key).setScale(scale1, plus);
+            {
+                if(parte.Key.ToString() == "rightarm")
+                {
+                    partes.Get(parte.Key).setScale(scale1, plus);
+                    Console.Write(partes.Get(parte.Key).Position);
+                }
+                else
+                {
+                    partes.Get(parte.Key).setScale(scale1, plus);
+
+                }
+
+            }
         }
 
         public override void renderPartes()
@@ -135,20 +174,44 @@ namespace App.Models
 
         public override void RotateX(bool dir)
         {
-            foreach (DictionaryEntry parte in partes)
+            foreach (DictionaryEntry parte in partes) 
                 partes.Get(parte.Key).RotateX(dir);
         }
 
         public override void RotateY(bool dir)
         {
             foreach (DictionaryEntry parte in partes)
+            {
                 partes.Get(parte.Key).RotateY(dir);
+                if (parte.Key.ToString() == "rightArmS") // rotar el brazo derecho 
+                {
+
+                }
+            }
         }
 
         public override void RotateZ(bool dir)
         {
             foreach (DictionaryEntry parte in partes)
                 partes.Get(parte.Key).RotateZ(dir);
+        }
+
+        public override void MoverX(float val)
+        {
+            foreach (DictionaryEntry parte in partes)
+                partes.Get(parte.Key).MoverX(val);
+        }
+
+        public override void MoverY(float val)
+        {
+            foreach (DictionaryEntry parte in partes)
+                partes.Get(parte.Key).MoverY(val);
+        }
+
+        public override void MoverZ(float val)
+        {
+            foreach (DictionaryEntry parte in partes)
+                partes.Get(parte.Key).MoverZ(val);
         }
     }
 }

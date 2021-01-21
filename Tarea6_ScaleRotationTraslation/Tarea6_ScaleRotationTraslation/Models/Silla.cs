@@ -21,7 +21,8 @@ namespace App.Models
 
         public Silla()
         {
-            this.centro = new Vector3(0f, 0.092f, -2.8f);
+            //this.centro = new Vector3(0f, 0.092f, -2.8f);
+            this.centro = new Vector3(0f, 0f, 0f);
             this.Position = centro;
 
             float anchoX = 0.25f;
@@ -147,7 +148,23 @@ namespace App.Models
         {
         }
 
-       
+        public override void MoverX(float val)
+        {
+            foreach (DictionaryEntry parte in partes)
+                partes.Get(parte.Key).MoverX(val);
+        }
+
+        public override void MoverY(float val)
+        {
+            foreach (DictionaryEntry parte in partes)
+                partes.Get(parte.Key).MoverY(val);
+        }
+
+        public override void MoverZ(float val)
+        {
+            foreach (DictionaryEntry parte in partes)
+                partes.Get(parte.Key).MoverZ(val);
+        }
     }
 
 

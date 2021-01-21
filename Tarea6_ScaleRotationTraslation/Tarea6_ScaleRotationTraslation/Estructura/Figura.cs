@@ -33,6 +33,10 @@ namespace App.Estructura
         public abstract void RotateY(bool dir);
         public abstract void RotateZ(bool dir);
 
+        public abstract void MoverX(float val);
+        public abstract void MoverY(float val);
+        public abstract void MoverZ(float val);
+
         public Matrix4 matriXRotation = Matrix4.Identity;
     }
 }

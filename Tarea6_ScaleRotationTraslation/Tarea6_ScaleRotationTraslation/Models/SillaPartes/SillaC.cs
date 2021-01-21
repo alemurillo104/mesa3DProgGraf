@@ -9,6 +9,20 @@ namespace App.Models.SillaPartes
 {
     public class SillaC : Parte
     {
+        public SillaC()
+        {
+            float anchoX = 0.25f;
+            float altoY = 0.75f;
+            float profZ = 0.25f;
+
+            this.cx = anchoX / 2;
+            this.cy = altoY / 2;
+            this.cz = profZ / 2;
+
+            this.Position = centro;
+            this.color = Color4.Yellow;
+        }
+
         public SillaC(Vector3 centro, float anchoX, float altoY, float profZ)
         {
             this.centro = centro;
@@ -298,9 +312,9 @@ namespace App.Models.SillaPartes
         public override void setScale(float s, bool plus)
         {
             if (plus)
-                Scale = new Vector3(Scale.X * 1.1f, Scale.Y * 1.1f, Scale.Z);
+                Scale = new Vector3(Scale.X * 1.1f, Scale.Y * 1.1f, Scale.Z * 1.1f);
             else
-                Scale = new Vector3(Scale.X * 0.9f, Scale.Y * 0.9f, Scale.Z);
+                Scale = new Vector3(Scale.X * 0.9f, Scale.Y * 0.9f, Scale.Z * 0.9f);
         }
 
         public override void CalculateModelMatrix()
@@ -602,6 +616,57 @@ namespace App.Models.SillaPartes
 
         public override void RotateX(bool dir)
         {
+            if (dir)
+                matriXRotation *= Matrix4.CreateRotationX(Rotation.X + 0.1f) *
+                                  Matrix4.CreateRotationY(Rotation.Y) * 
+                                  Matrix4.CreateRotationZ(Rotation.Z);
+            else
+                matriXRotation *= Matrix4.CreateRotationX(Rotation.X - 0.1f) *
+                                  Matrix4.CreateRotationY(Rotation.Y) *
+                                  Matrix4.CreateRotationZ(Rotation.Z);
+        }
+
+        public override void RotateY(bool dir) {
+            if (dir)
+                matriXRotation *= Matrix4.CreateRotationX(Rotation.X ) *
+                                  Matrix4.CreateRotationY(Rotation.Y + 0.1f) *
+                                  Matrix4.CreateRotationZ(Rotation.Z);
+            else
+                matriXRotation *= Matrix4.CreateRotationX(Rotation.X) *
+                                  Matrix4.CreateRotationY(Rotation.Y - 0.1f) *
+                                  Matrix4.CreateRotationZ(Rotation.Z);
+        }
+        public override void RotateZ(bool dir)
+        {
+            if (dir)
+                matriXRotation *= Matrix4.CreateRotationX(Rotation.X) *
+                                  Matrix4.CreateRotationY(Rotation.Y ) *
+                                  Matrix4.CreateRotationZ(Rotation.Z + 0.1f);
+            else
+                matriXRotation *= Matrix4.CreateRotationX(Rotation.X) *
+                                  Matrix4.CreateRotationY(Rotation.Y ) *
+                                  Matrix4.CreateRotationZ(Rotation.Z - 0.1f);
+        }
+
+        public override void MoverX(float val)
+        {
+            Position = new Vector3(Position.X + val, Position.Y, Position.Z);
+        }
+
+        public override void MoverY(float val)
+        {
+            Position = new Vector3(Position.X, Position.Y + val, Position.Z);
+        }
+
+        public override void MoverZ(float val)
+        {
+            Position = new Vector3(Position.X, Position.Y, Position.Z + val);
+        }
+        /*
+
+        ESTA ERA LA IDEA PARA LA ROTACION, ME SERVIRA PARA LAS PARTES DEL ROBOT SI, TENGO QUE VER COMO HACER ESO AUN OKISS
+        public override void RotateX(bool dir)
+        {
             //var anterior = matriXRotation;
             //var anteriorT = Position;
 
@@ -626,6 +691,7 @@ namespace App.Models.SillaPartes
         {
             //Position = new Vector3(0, 0, 0);
             matriXPosition = Matrix4.Identity;
+
         }
 
         public override void RotateZ(bool dir)
@@ -633,6 +699,6 @@ namespace App.Models.SillaPartes
             //Position = new Vector3(0f, 0.092f, -2.8f);
             matriXPosition = Matrix4.CreateTranslation(new Vector3(0f, 0.092f, -2.8f));
         }
-
+        */
     }
 }

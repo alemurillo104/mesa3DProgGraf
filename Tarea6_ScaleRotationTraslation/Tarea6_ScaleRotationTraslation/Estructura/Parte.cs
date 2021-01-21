@@ -37,6 +37,11 @@ namespace App.Estructura
         public Matrix4 matriXRotation = Matrix4.Identity;
         public Matrix4 matriXPosition = Matrix4.Zero;
 
+
+        public abstract void MoverX(float val);
+        public abstract void MoverY(float val);
+        public abstract void MoverZ(float val);
+
         public abstract Vertex[] GetVerts();
         public abstract TexturedVertex[] GetVerts2();
 
