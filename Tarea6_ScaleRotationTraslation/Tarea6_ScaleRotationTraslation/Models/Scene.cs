@@ -40,7 +40,10 @@ namespace App.Estructura
         public override void CalculateModelMatrix()
         {
             foreach (DictionaryEntry e in objects)
-                objects.Get(e.Key).CalculateModelMatrix();
+            {
+                ModelMatrix *= objects.Get(e.Key).ModelMatrix;
+            }
+                //objects.Get(e.Key).CalculateModelMatrix();
         }
 
         #region Position

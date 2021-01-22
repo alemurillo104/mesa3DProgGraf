@@ -29,9 +29,6 @@ namespace App
 
         public void initProgram()
         {
-            cam = new Camera();
-            inp = new InputController();
-            
             scene = new Scene();
 
             m = new Mesa();
@@ -40,9 +37,14 @@ namespace App
             r = new Robot();
             r.MoverY(0.87f);
 
+            
             scene.add("mesa", m);
             scene.add("silla", s);
             scene.add("robot", r);
+            
+            cam = new Camera();
+            inp = new InputController(scene);
+            
         }
 
         protected override void OnLoad(EventArgs e)
@@ -80,7 +82,7 @@ namespace App
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
-            inp.processControls(Keyboard.GetState(), cam, scene);
+            inp.processControls(Keyboard.GetState(), cam, scene, ref lastMousePos);
 
             if (Keyboard.GetState().IsKeyDown(Key.Space)) Exit();
             if (Focused) inp.updateMouseMovement(Mouse.GetState(), cam, ref lastMousePos);
