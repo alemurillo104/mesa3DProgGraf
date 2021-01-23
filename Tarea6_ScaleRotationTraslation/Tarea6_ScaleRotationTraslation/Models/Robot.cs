@@ -9,17 +9,21 @@ using Tarea6_ScaleRotationTraslation.RCommon;
 using System.Collections;
 using Tarea6_ScaleRotationTraslation.Models.RobotPartes;
 using Tarea6_ScaleRotationTraslation.Models.RobotPartes.Extremidades;
+using System.Threading;
 
 namespace App.Models
 {
     public class Robot : Figura
     {
         HashList<Parte> partes;
-        List<RenderObject1> renderOb;
+        List<RenderObject> renderOb;
+
+        bool pieIzquierdoAdelante = true;
+        bool adelante = true;
+        bool dir = true;
 
         public Robot()
         {
-            //this.centro = new Vector3(0f, 0.53f, -2.7f);
             this.centro = new Vector3(0f, 0f, 0f);
             this.Position = centro;
 
@@ -31,7 +35,7 @@ namespace App.Models
             this.isTextured = true;
 
             partes = new HashList<Parte>();
-            renderOb = new List<RenderObject1>();
+            renderOb = new List<RenderObject>();
 
             cargarPartes(anchoX, altoY, profZ);
             cargarRenderObjects();
@@ -46,7 +50,7 @@ namespace App.Models
             this.Position = centro;
 
             partes = new HashList<Parte>();
-            renderOb = new List<RenderObject1>();
+            renderOb = new List<RenderObject>();
 
             cargarPartes(anchoX, altoY, profZ);
             cargarRenderObjects();
@@ -182,6 +186,78 @@ namespace App.Models
         }
         #endregion
 
-       
+        #region Movements
+
+        public override void MoverAdelante()
+        {
+            adelante = true;
+
+            partes.Get("head").MoverZ(0.05f);
+            partes.Get("body").MoverZ(0.05f);
+            moverBrazos(pieIzquierdoAdelante);
+
+            if (pieIzquierdoAdelante)
+            {
+                partes.Get("rightLegS").MoverZ(true);
+                partes.Get("rightLegI").MoverZ(true);
+            }
+            else
+            {
+                partes.Get("leftLegS").MoverZ(true);
+                partes.Get("leftLegI").MoverZ(true);
+            }
+
+            pieIzquierdoAdelante = !pieIzquierdoAdelante;
+
+        }
+
+        public void moverBrazos(bool pieAdelante)
+        {
+            int fw = (adelante) ? 1 : -1;
+            int ch = (pieAdelante) ? 1 : -1;
+
+            partes.Get("leftArmS").RotateX(0.2f * ch);
+            partes.Get("leftArmI").RotateX(0.2f * ch);
+
+            partes.Get("rightArmS").RotateX(-0.2f * ch);
+            partes.Get("rightArmI").RotateX(-0.2f * ch);
+
+            partes.Get("leftArmS").MoverZ(0.05f * fw);
+            partes.Get("leftArmI").MoverZ(0.05f * fw);
+
+            partes.Get("rightArmS").MoverZ(0.05f * fw);
+            partes.Get("rightArmI").MoverZ(0.05f * fw);
+
+            dir = !dir;
+        
+        }
+
+        public override void MoverAtras()
+        {
+            adelante = false;
+
+            if (pieIzquierdoAdelante)
+            {
+                partes.Get("head").MoverZ(-0.05f);
+                partes.Get("body").MoverZ(-0.05f);
+                moverBrazos(pieIzquierdoAdelante);
+                partes.Get("rightLegS").MoverZ(false);
+                partes.Get("rightLegI").MoverZ(false);
+            }
+            else
+            {
+                partes.Get("head").MoverZ(-0.05f);
+                partes.Get("body").MoverZ(-0.05f);
+                moverBrazos(pieIzquierdoAdelante);
+                partes.Get("leftLegS").MoverZ(false);
+                partes.Get("leftLegI").MoverZ(false);
+            }
+
+            pieIzquierdoAdelante = !pieIzquierdoAdelante;
+        }
+
+        #endregion
+
     }
 }
+

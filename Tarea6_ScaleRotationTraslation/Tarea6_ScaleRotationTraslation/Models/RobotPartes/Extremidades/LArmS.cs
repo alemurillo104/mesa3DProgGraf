@@ -235,8 +235,31 @@ namespace Tarea6_ScaleRotationTraslation.Models.RobotPartes.Extremidades
                                     Matrix4.CreateRotationY(Rotation.Y) *
                                     Matrix4.CreateRotationZ(Rotation.Z - 0.1f);
         }
-        #endregion 
 
-      
+
+        public override void RotateX(float val)
+        {
+            matriXRotation *= Matrix4.CreateRotationX(Rotation.X + val) *
+                              Matrix4.CreateRotationY(Rotation.Y) *
+                              Matrix4.CreateRotationZ(Rotation.Z);
+        }
+
+        public override void RotateY(float val)
+        {
+            matriXRotation *= Matrix4.CreateRotationX(Rotation.X) *
+                              Matrix4.CreateRotationY(Rotation.Y + val) *
+                              Matrix4.CreateRotationZ(Rotation.Z);
+        }
+
+        public override void RotateZ(float val)
+        {
+            matriXRotation *= Matrix4.CreateRotationX(Rotation.X) *
+                              Matrix4.CreateRotationY(Rotation.Y) *
+                              Matrix4.CreateRotationZ(Rotation.Z + val);
+        }
+
+        #endregion
+
+
     }
 }

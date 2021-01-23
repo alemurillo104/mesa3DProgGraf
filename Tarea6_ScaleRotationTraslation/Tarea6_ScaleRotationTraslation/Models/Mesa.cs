@@ -13,13 +13,11 @@ namespace App.Models
     public class Mesa : Figura
     {
         HashList<Parte> partes;
-        List<RenderObject1> renderOb;
+        List<RenderObject> renderOb;
 
         public Mesa()
         {
             this.centro = new Vector3(0f, 0f, 0f);
-         //   this.centro = new Vector3(0f, 0.092f, -2.8f);
-
             this.Position = centro;
 
             float anchoX = 0.75f ;
@@ -33,7 +31,7 @@ namespace App.Models
             this.isTextured = true;
 
             partes = new HashList<Parte>();
-            renderOb = new List<RenderObject1>();
+            renderOb = new List<RenderObject>();
 
             cargarPartes(anchoX, altoY, profZ);
         }
@@ -47,7 +45,7 @@ namespace App.Models
             this.Position = centro;
 
             partes = new HashList<Parte>();
-            renderOb = new List<RenderObject1>();
+            renderOb = new List<RenderObject>();
 
             cargarPartes(anchoX, altoY, profZ);
         }
@@ -169,9 +167,12 @@ namespace App.Models
             foreach (DictionaryEntry parte in partes)
                 partes.Get(parte.Key).RotateZ(dir);
         }
-        #endregion 
 
-      
+        #endregion
+
+        public override void MoverAdelante(){}
+        public override void MoverAtras() {}
+
     }
 }
 

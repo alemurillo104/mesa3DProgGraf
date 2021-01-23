@@ -38,5 +38,9 @@ namespace App.Estructura
         public abstract void MoverZ(float val);
 
         public Matrix4 matriXRotation = Matrix4.Identity;
+
+        public abstract void MoverAdelante();
+        public abstract void MoverAtras();
+
     }
 }

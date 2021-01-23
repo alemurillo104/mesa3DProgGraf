@@ -42,6 +42,11 @@ namespace App.Estructura
         public abstract void MoverY(float val);
         public abstract void MoverZ(float val);
 
+        public abstract void RotateX(float val);
+        public abstract void RotateY(float val);
+        public abstract void RotateZ(float val);
+
+
         public abstract Vertex[] GetVerts();
         public abstract TexturedVertex[] GetVerts2();
 

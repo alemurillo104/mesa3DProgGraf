@@ -87,7 +87,6 @@ namespace App
             if (Keyboard.GetState().IsKeyDown(Key.Space)) Exit();
             if (Focused) inp.updateMouseMovement(Mouse.GetState(), cam, ref lastMousePos);
 
-            //Matrix4 tras = Matrix4.CreateTranslation(new Vector3(-1.8f,-0.4f,2f));
             Matrix4 tras = Matrix4.CreateTranslation(new Vector3(0,0,-4.4f));
             Matrix4 rY = Matrix4.CreateRotationY(-0.5f);
 

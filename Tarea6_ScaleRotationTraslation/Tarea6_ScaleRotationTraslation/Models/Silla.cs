@@ -17,11 +17,10 @@ namespace App.Models
     class Silla : Figura
     {
         HashList<Parte> partes;
-        List<RenderObject1> renderOb;
+        List<RenderObject> renderOb;
 
         public Silla()
         {
-            //this.centro = new Vector3(0f, 0.092f, -2.8f);
             this.centro = new Vector3(0f, 0f, 0f);
             this.Position = centro;
 
@@ -30,7 +29,7 @@ namespace App.Models
             float profZ  = 0.25f;
 
             partes = new HashList<Parte>();
-            renderOb = new List<RenderObject1>();
+            renderOb = new List<RenderObject>();
 
             this.isTextured = true;
             this.textureId = "maderablanca.png";
@@ -44,7 +43,7 @@ namespace App.Models
             this.Position = centro;
 
             partes = new HashList<Parte>();
-            renderOb = new List<RenderObject1>();
+            renderOb = new List<RenderObject>();
 
             this.isTextured = (TextureId == "") ? false : true;
             this.textureId = TextureId;
@@ -160,8 +159,18 @@ namespace App.Models
         #endregion 
 
      
-        public override void CalculateModelMatrix(){}
+        public override void CalculateModelMatrix()
+        {
+            foreach (DictionaryEntry parte in partes)
+            {
+                ModelMatrix *= partes.Get(parte.Key).ModelMatrix;
+            }
 
+        }
+
+
+        public override void MoverAdelante() { }
+        public override void MoverAtras() { }
     }
 
 

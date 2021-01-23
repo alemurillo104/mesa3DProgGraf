@@ -1,24 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using OpenTK;
-using System.IO;
 using OpenTK.Input;
 using App.Estructura;
 using App.Models;
 using App.Classes;
 using System.Collections;
-using System.Threading;
 
 namespace App.Utils
 {
     class InputController
     {
         int i = 0;
-        int time = 250;
+        bool cambiando = false;
+        int iter = 0, iter2 = 0;
+        int time = 70000000;
 
         Figura actual;
         String actualName;
@@ -49,14 +47,11 @@ namespace App.Utils
             {
                 actualName = figurasName[i];
 
-                if (figuras.Count == 1){ //un solo item
+                if (figuras.Count == 1) //un solo item
                     i = 0;
-                } else {
-                    if (i == (figuras.Count - 1)) // llegue al final, reinicio
-                        i = 0;
-                    else
-                        i += 1;
-                }
+                else
+                    i = (i == (figuras.Count - 1)) ? 0 : (i + 1); //llegue al final, reinicio
+                
             } else {
                 Console.Write("Escena vacia, cargar objetos2 \n");
             }
@@ -64,13 +59,22 @@ namespace App.Utils
 
         public void addObject(Scene scene, String name, Figura f)
         {
-            Guid g = Guid.NewGuid();
-            name += g.ToString();
-            scene.add(name, f);
-            cargarVecParalel(scene);
-            cambiarFig(scene);
+            while (true)
+            {
+                if (iter2 == time)
+                {
+                    Guid g = Guid.NewGuid();
+                    name += g.ToString();
+                    scene.add(name, f);
+                    cargarVecParalel(scene);
+                    //cambiarFig(scene);
 
-            Console.Write("Objeto añadir un nuevo objeto \n");
+                    iter2 = 0;
+                    break;
+                }
+                iter2++;
+            }
+            Console.Write("Nuevo objeto añadido \n");
             Console.Write("---AddFin i = " + i + "\n");
         }
 
@@ -82,9 +86,8 @@ namespace App.Utils
                 figurasName.Add(obj.Key.ToString());
         }
 
-        public void addMesa(Scene scene) {
-
-            Thread.Sleep(time);
+        public void addMesa(Scene scene)
+        {
             Mesa m1 = new Mesa();
             m1.MoverX(0.5f);
             addObject(scene, "mesa", m1);
@@ -92,7 +95,6 @@ namespace App.Utils
 
         public void addSilla(Scene scene)
         {
-            Thread.Sleep(time);
             Silla m1 = new Silla();
             m1.MoverX(0.5f);
             addObject(scene, "silla", m1);
@@ -100,48 +102,80 @@ namespace App.Utils
 
         public void addRobot(Scene scene)
         {
-            Thread.Sleep(time);
             Robot m1 = new Robot();
             m1.MoverX(0.5f);
             addObject(scene, "robot", m1);
         }
 
+        public void delObjecto(Scene scene)
+        {
+            while (true)
+            {
+                if (iter == time) 
+                {
+                    delObject(scene);
+                    iter = 0;
+                    break;
+                }
+                iter++;
+            }
+        }
+
         public void delObject(Scene scene)
         {
-            Thread.Sleep(time);
-            scene.del(actualName); //lo elimino de la escena
+            if (scene.objects.Count > 0) 
+            {
+                scene.del(actualName); //lo elimino de la escena
+                figurasName.Remove(actualName);
 
-            //elimino de figurasName y paso al sgte elem para renderizar
-            figurasName.Remove(actualName);
+                i = (i == 0) ? (figurasName.Count() - 1) : (i - 1);
+                
+                if (scene.objects.Count == 0){
+                    i = 0;
+                    Console.Write("Escena vacia, agregar objetos");
+                }
 
-            if (i==0)
-                i = figurasName.Count() - 1;
-            else
-                i--;
-            
-            if (scene.objects.Count == 0) i = 0;
-
-            //escojo la sgte pieza
-            cambiarFig(scene);
-            Console.Write("---Fin i = " + i + "\n");
+                Console.Write("-Figura Eliminada i = " + i + "\n");
+            }
         }
 
         public void cambiarFig(Scene scene)
         {
-            Thread.Sleep(time);
-            cambiarFiguraInput(scene.objects);
-            actual = scene.objects.Get(actualName);
-            Console.Write("Fig Actual: " + actualName + "\n");
+            if (scene.objects.Count > 0 && cambiando )
+            {
+                cambiarFiguraInput(scene.objects);
+                actual = scene.objects.Get(actualName);
+                Console.Write("Fig Actual: " + actualName + "\n");
+            }
+        }
+        public void cambiandoT()
+        {
+            while (true)
+            {
+                if (iter == time)
+                {
+                    cambiando = true;
+                    iter = 0;
+                    break;
+                }
+                iter++;
+            }
         }
 
         //Movimientos del teclado
         public void processControls(KeyboardState ks, Camera camera, Scene scene, ref Vector2 lastMousePos)
         {
             //Cambiar figura
+
             if (ks.IsKeyDown(Key.Tab) && actual != null)
-            {
+                cambiandoT();
+
+            if (ks.IsKeyUp(Key.Tab) && actual != null)
+                cambiando = false;
+
+            if (ks.IsKeyUp(Key.ControlLeft) && actual != null)
                 cambiarFig(scene);
-            }
+
 
             #region Position
 
@@ -179,7 +213,7 @@ namespace App.Utils
             #region Scene
 
             //Scene
-            
+
             if (ks.IsKeyDown(Key.Keypad1)) scene.MoverX(true);
             if (ks.IsKeyDown(Key.Keypad3)) scene.MoverX(false);
 
@@ -187,19 +221,19 @@ namespace App.Utils
             if (ks.IsKeyDown(Key.Keypad0)) scene.MoverY(false);
 
             if (ks.IsKeyDown(Key.KeypadPeriod)) scene.setScale(1, true);
-            if (ks.IsKeyDown(Key.KeypadEnter))  scene.setScale(1, false);
+            if (ks.IsKeyDown(Key.KeypadEnter)) scene.setScale(1, false);
 
             if (ks.IsKeyDown(Key.Number1)) scene.RotateX(true);
             if (ks.IsKeyDown(Key.Number2)) scene.RotateX(false);
-                                           
+
             if (ks.IsKeyDown(Key.Number3)) scene.RotateY(true);
             if (ks.IsKeyDown(Key.Number4)) scene.RotateY(false);
-                                           
+
             if (ks.IsKeyDown(Key.Number5)) scene.RotateZ(true);
             if (ks.IsKeyDown(Key.Number6)) scene.RotateZ(false);
 
             #endregion
-            
+
 
             #region Camera
 
@@ -227,7 +261,7 @@ namespace App.Utils
                 camera.Move(0f, 0f, -0.1f);
 
             #endregion
-            
+
 
             //Añadir objecto
             if (ks.IsKeyDown(Key.I)) addMesa(scene);
@@ -235,16 +269,31 @@ namespace App.Utils
             if (ks.IsKeyDown(Key.P)) addRobot(scene);
 
             //Eliminar actual
-            if (ks.IsKeyDown(Key.L)) delObject(scene);
+            if (ks.IsKeyDown(Key.L)) delObjecto(scene);
 
 
-            if (ks.IsKeyDown(Key.KeypadDivide))   RotarX(true, camera, ref lastMousePos);
+            if (ks.IsKeyDown(Key.KeypadDivide)) RotarX(true, camera, ref lastMousePos);
             if (ks.IsKeyDown(Key.KeypadMultiply)) RotarX(false, camera, ref lastMousePos);
 
             if (ks.IsKeyDown(Key.KeypadMinus)) RotarY(true, camera, ref lastMousePos);
-            if (ks.IsKeyDown(Key.KeypadPlus))  RotarY(false, camera, ref lastMousePos);
+            if (ks.IsKeyDown(Key.KeypadPlus)) RotarY(false, camera, ref lastMousePos);
 
+
+            //MoverRobot partes
+            if (ks.IsKeyDown(Key.T) && actual != null)
+            {
+             //   Thread.Sleep(time);
+                actual.MoverAdelante();
+            }
+
+            if (ks.IsKeyDown(Key.Y) && actual != null)
+            {
+               // Thread.Sleep(time);
+                actual.MoverAtras();
+
+            }
         }
+
         public void RotarX(bool dir, Camera camera, ref Vector2 lastMousePos)
         {
             Vector2 delta = lastMousePos - new Vector2(0f, 0.1f);
@@ -261,7 +310,6 @@ namespace App.Utils
         public void updateMouseMovement(MouseState mstate, Camera camera, ref Vector2 lastMousePos)
         {
             Vector2 delta = lastMousePos - new Vector2(mstate.X, mstate.Y);
-            //lastMousePos += delta;
 
             camera.AddRotation(delta.X, delta.Y);
             lastMousePos = new Vector2(mstate.X, mstate.Y);

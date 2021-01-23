@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Tarea6_ScaleRotationTraslation.RCommon
 {
-    public class CRenderObj : RenderObject1
+    public class CRenderObj : RenderObject
     {
         public CRenderObj(Vertex[] vertices, int program)
             : base(program, vertices.Length)

@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Tarea6_ScaleRotationTraslation.RCommon
 {
-    public abstract class RenderObject1 : IDisposable
+    public abstract class RenderObject : IDisposable
     {
         protected readonly int Program;
         protected readonly int VertexArray;
         protected readonly int Buffer;
         protected readonly int VerticeCount;
 
-        protected RenderObject1(int program, int vertexCount)
+        protected RenderObject(int program, int vertexCount)
         {
             Program = program;
             VerticeCount = vertexCount;

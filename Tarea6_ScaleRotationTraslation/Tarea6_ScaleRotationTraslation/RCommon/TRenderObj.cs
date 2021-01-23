@@ -8,7 +8,7 @@ using PixelFormat = OpenTK.Graphics.OpenGL.PixelFormat;
 
 namespace Tarea6_ScaleRotationTraslation.RCommon
 {
-    public class TRenderObj : RenderObject1
+    public class TRenderObj : RenderObject
     {
         private readonly int _texture;
 
