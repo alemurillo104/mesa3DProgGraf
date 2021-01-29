@@ -194,13 +194,13 @@ namespace App.Utils
 
             if (ks.IsKeyDown(Key.C) && actual != null) actual.RotateX(true);
             if (ks.IsKeyDown(Key.B) && actual != null) actual.RotateX(false);
-
+            
             if (ks.IsKeyDown(Key.F) && actual != null) actual.RotateY(true);
             if (ks.IsKeyDown(Key.V) && actual != null) actual.RotateY(false);
 
             if (ks.IsKeyDown(Key.N) && actual != null) actual.RotateZ(true);
             if (ks.IsKeyDown(Key.M) && actual != null) actual.RotateZ(false);
-
+           
             #endregion
 
             #region Scale
@@ -213,9 +213,16 @@ namespace App.Utils
             #region Scene
 
             //Scene
+            //Aqui era MoverX
+            if (ks.IsKeyDown(Key.Keypad1)) {
+                scene.MoverZ(true);
+                Console.Write(scene.Position.Z.ToString());
+            }
 
-            if (ks.IsKeyDown(Key.Keypad1)) scene.MoverX(true);
-            if (ks.IsKeyDown(Key.Keypad3)) scene.MoverX(false);
+            if (ks.IsKeyDown(Key.Keypad3)) {
+                scene.MoverZ(false);
+                Console.Write(scene.Position.Z.ToString());
+            }
 
             if (ks.IsKeyDown(Key.Keypad7)) scene.MoverY(true);
             if (ks.IsKeyDown(Key.Keypad0)) scene.MoverY(false);
@@ -282,15 +289,14 @@ namespace App.Utils
             //MoverRobot partes
             if (ks.IsKeyDown(Key.T) && actual != null)
             {
-             //   Thread.Sleep(time);
-                actual.MoverAdelante();
+                //actual.MoverAdelante();
+                actual.MoverAdelanteFrente(frente: true, adelante: true);
             }
 
             if (ks.IsKeyDown(Key.Y) && actual != null)
             {
-               // Thread.Sleep(time);
-                actual.MoverAtras();
-
+                //actual.MoverAtras();
+                actual.MoverAdelanteFrente(frente: true, adelante: false);
             }
         }
 

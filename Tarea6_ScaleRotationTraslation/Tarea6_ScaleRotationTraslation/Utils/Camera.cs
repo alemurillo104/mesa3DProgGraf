@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace App.Utils
 {
-    class Camera
+    public class Camera
     {
         public Vector3 Position = Vector3.Zero;
         public Vector3 Orientation = new Vector3((float)Math.PI, 0f, 0f);
@@ -57,8 +57,8 @@ namespace App.Utils
             x = x * MouseSensitivity;
 
             Orientation.X = (dir) 
-                            ? (Orientation.X + x) % ((float)Math.PI * 2.0f) 
-                            : (Orientation.X - x) % ((float)Math.PI * 2.0f);
+                            ? (Orientation.X + (5 * x)) % ((float)Math.PI * 2.0f) 
+                            : (Orientation.X - (5 * x)) % ((float)Math.PI * 2.0f);
         }
 
         public void AddRotationY(bool dir, float y)
@@ -66,8 +66,10 @@ namespace App.Utils
             y = y * MouseSensitivity;
             
             Orientation.Y = (dir)
-                            ? (Orientation.Y + y) % ((float)Math.PI * 2.0f)
-                            : (Orientation.Y - y) % ((float)Math.PI * 2.0f);
+                            ? (Orientation.Y + (5 * y)) % ((float)Math.PI * 2.0f)
+                            : (Orientation.Y - (5 * y)) % ((float)Math.PI * 2.0f);
         }
+
+
     }
 }

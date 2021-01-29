@@ -12,6 +12,7 @@ namespace App.Estructura
     public abstract class Parte
     {
         public float cx, cy, cz;
+        public float step = 0.05f;
 
         public Vector3 centro = Vector3.Zero;
         public Color4 color = new Color4(0f, 0f, 1f, 1f);

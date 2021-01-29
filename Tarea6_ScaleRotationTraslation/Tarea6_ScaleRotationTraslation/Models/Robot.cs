@@ -7,9 +7,7 @@ using App.Estructura;
 using App.Classes;
 using Tarea6_ScaleRotationTraslation.RCommon;
 using System.Collections;
-using Tarea6_ScaleRotationTraslation.Models.RobotPartes;
 using Tarea6_ScaleRotationTraslation.Models.RobotPartes.Extremidades;
-using System.Threading;
 
 namespace App.Models
 {
@@ -184,17 +182,166 @@ namespace App.Models
             foreach (DictionaryEntry parte in partes)
                 partes.Get(parte.Key).RotateZ(dir);
         }
+
+        public override void RotateX(float val)
+        {
+            foreach (DictionaryEntry parte in partes)
+                partes.Get(parte.Key).RotateX(val);
+        }
+
+        public override void RotateY(float val)
+        {
+            foreach (DictionaryEntry parte in partes)
+                partes.Get(parte.Key).RotateY(val);
+        }
+
+        public override void RotateZ(float val)
+        {
+            foreach (DictionaryEntry parte in partes)
+                partes.Get(parte.Key).RotateZ(val);
+        }
         #endregion
 
         #region Movements
 
-        public override void MoverAdelante()
+        public override void MoverAdelanteFrente(bool frente, bool adelante)
+        {
+            Console.Write("MoverAdelanteFrente sw:" + adelante.ToString());
+            if (frente)
+            {
+                if (adelante)
+                    MoverAdelante1();
+                else
+                    MoverAtras1();
+            } else {
+
+                if (adelante)
+                    MoverAtras1();
+                else
+                    MoverAdelante1();
+            }
+        }
+
+        public override void MoverAdelanteIzquierda(bool izq, bool adelante)
+        {
+            Console.Write("MoverAdelanteIzquierda sw:" + adelante.ToString());
+            if (izq)
+            {
+                if (adelante)
+                    MoverAdelante();
+                else
+                    MoverAtras();
+            } else {
+
+                if (adelante)
+                    MoverAtras();
+                else
+                    MoverAdelante();
+            }
+        }
+
+        public void MoverAtras()
+        {
+            adelante = true;
+
+            float stepza = partes.Get("head").step; //0.05f
+
+            partes.Get("head").MoverX(stepza);
+            partes.Get("body").MoverX(stepza);
+            moverBrazos2(pieIzquierdoAdelante);
+
+            if (pieIzquierdoAdelante)
+            {
+                partes.Get("rightLegS").MoverX(true);
+                partes.Get("rightLegI").MoverX(true);
+            }
+            else
+            {
+                partes.Get("leftLegS").MoverX(true);
+                partes.Get("leftLegI").MoverX(true);
+            }
+
+            pieIzquierdoAdelante = !pieIzquierdoAdelante;
+
+        }
+
+        public void MoverAdelante()
+        {
+            adelante = false;
+
+            float stepza= partes.Get("head").step;
+
+            partes.Get("head").MoverX(-stepza);
+            partes.Get("body").MoverX(-stepza);
+            moverBrazos2(pieIzquierdoAdelante);
+
+            if (pieIzquierdoAdelante)
+            {
+                partes.Get("rightLegS").MoverX(false);
+                partes.Get("rightLegI").MoverX(false);
+            }else{
+                partes.Get("leftLegS").MoverX(false);
+                partes.Get("leftLegI").MoverX(false);
+            }
+
+            pieIzquierdoAdelante = !pieIzquierdoAdelante;
+        }
+
+        public void moverBrazos2(bool pieAdelante)
+        {
+            int fw = (adelante) ? 1 : -1;
+            int ch = (pieAdelante) ? 1 : -1;
+
+            partes.Get("leftArmS").RotateY(0.2f * ch);
+            partes.Get("leftArmI").RotateY(0.2f * ch);
+
+            partes.Get("rightArmS").RotateY(-0.2f * ch);
+            partes.Get("rightArmI").RotateY(-0.2f * ch);
+
+            partes.Get("leftArmS").MoverX(0.05f * fw);
+            partes.Get("leftArmI").MoverX(0.05f * fw);
+
+            partes.Get("rightArmS").MoverX(0.05f * fw);
+            partes.Get("rightArmI").MoverX(0.05f * fw);
+
+            dir = !dir;
+
+        }
+
+        public override void subir()
+        {
+            MoverY(step);
+            MoverZ(step);
+        }
+
+        public override void bajar()
+        {
+            MoverZ(-step);
+            MoverY(-step);
+        }
+
+        public override void rotarIzquierda(int opt)
+        {
+            float step2 = 0f;
+
+            switch (opt)
+            {
+                case 1: step2 =  rot;     break;
+                case 2: step2 = -(rot*2); break;
+                case 3: step2 = -rot;     break;
+                case 4: step2 =  rot*2;   break;
+            }
+            RotateY(step2);
+        }
+       
+        //Mover Frente
+        public void MoverAdelante1()
         {
             adelante = true;
 
             partes.Get("head").MoverZ(0.05f);
             partes.Get("body").MoverZ(0.05f);
-            moverBrazos(pieIzquierdoAdelante);
+            moverBrazos1(pieIzquierdoAdelante);
 
             if (pieIzquierdoAdelante)
             {
@@ -211,7 +358,30 @@ namespace App.Models
 
         }
 
-        public void moverBrazos(bool pieAdelante)
+        public void MoverAtras1()
+        {
+            adelante = false;
+
+            partes.Get("head").MoverZ(-0.05f);
+            partes.Get("body").MoverZ(-0.05f);
+            moverBrazos1(pieIzquierdoAdelante);
+
+            if (pieIzquierdoAdelante)
+            {
+                partes.Get("rightLegS").MoverZ(false);
+                partes.Get("rightLegI").MoverZ(false);
+            }
+            else
+            {
+                partes.Get("leftLegS").MoverZ(false);
+                partes.Get("leftLegI").MoverZ(false);
+            }
+
+            pieIzquierdoAdelante = !pieIzquierdoAdelante;
+        }
+
+
+        public void moverBrazos1(bool pieAdelante)
         {
             int fw = (adelante) ? 1 : -1;
             int ch = (pieAdelante) ? 1 : -1;
@@ -229,33 +399,8 @@ namespace App.Models
             partes.Get("rightArmI").MoverZ(0.05f * fw);
 
             dir = !dir;
-        
+
         }
-
-        public override void MoverAtras()
-        {
-            adelante = false;
-
-            if (pieIzquierdoAdelante)
-            {
-                partes.Get("head").MoverZ(-0.05f);
-                partes.Get("body").MoverZ(-0.05f);
-                moverBrazos(pieIzquierdoAdelante);
-                partes.Get("rightLegS").MoverZ(false);
-                partes.Get("rightLegI").MoverZ(false);
-            }
-            else
-            {
-                partes.Get("head").MoverZ(-0.05f);
-                partes.Get("body").MoverZ(-0.05f);
-                moverBrazos(pieIzquierdoAdelante);
-                partes.Get("leftLegS").MoverZ(false);
-                partes.Get("leftLegI").MoverZ(false);
-            }
-
-            pieIzquierdoAdelante = !pieIzquierdoAdelante;
-        }
-
         #endregion
 
     }

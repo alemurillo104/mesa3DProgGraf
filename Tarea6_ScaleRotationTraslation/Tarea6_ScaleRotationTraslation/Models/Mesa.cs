@@ -168,11 +168,33 @@ namespace App.Models
                 partes.Get(parte.Key).RotateZ(dir);
         }
 
+        public override void RotateX(float val)
+        {
+            foreach (DictionaryEntry parte in partes)
+                partes.Get(parte.Key).RotateX(val);
+        }
+
+        public override void RotateY(float val)
+        {
+            foreach (DictionaryEntry parte in partes)
+                partes.Get(parte.Key).RotateY(val);
+        }
+
+        public override void RotateZ(float val)
+        {
+            foreach (DictionaryEntry parte in partes)
+                partes.Get(parte.Key).RotateZ(val);
+        }
+
         #endregion
 
-        public override void MoverAdelante(){}
-        public override void MoverAtras() {}
+        public override void subir(){}
+        public override void bajar(){}
 
+        public override void rotarIzquierda(int opt) { }
+
+        public override void MoverAdelanteFrente(bool frente, bool sw){}
+        public override void MoverAdelanteIzquierda(bool izq, bool sw){}
     }
 }
 

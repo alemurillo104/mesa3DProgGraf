@@ -8,6 +8,7 @@ using OpenTK.Input;
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using Tarea6_ScaleRotationTraslation.Models;
 using Tarea6_ScaleRotationTraslation.RCommon;
 
 namespace App
@@ -23,7 +24,14 @@ namespace App
         InputController inp;
 
         private Matrix4 _projectionMatrix;
-        Vector2 lastMousePos = new Vector2();
+        Vector2 lastMousePos = Vector2.One;
+
+        int i = 0;
+        string actual;
+        double timee = 0;
+        double timeLimite = 700;
+
+        Accions LAccions; //lista de acciones reales
 
         public Game() : base(1050, 612, GraphicsMode.Default, "Mesa3D") { }
 
@@ -36,7 +44,6 @@ namespace App
             s.MoverZ(-0.3f);
             r = new Robot();
             r.MoverY(0.87f);
-
             
             scene.add("mesa", m);
             scene.add("silla", s);
@@ -44,7 +51,14 @@ namespace App
             
             cam = new Camera();
             inp = new InputController(scene);
-            
+
+            LAccions = new Accions(scene, ref cam, ref lastMousePos);
+           
+            if (LAccions.accionesName.Count > 0)
+            {
+                actual = LAccions.accionesName[i]; //Primera accion a repetir hasta timeLimite veces
+                timeLimite = chgTimeLimiteAct(LAccions.tiempos.Get(actual));
+            }
         }
 
         protected override void OnLoad(EventArgs e)
@@ -67,11 +81,16 @@ namespace App
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
+            timee += e.Time;
+            Title = timee.ToString();
             base.OnRenderFrame(e);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             GL.UseProgram(ShaderProgram.Instance.Id);
             GL.UniformMatrix4(20, false, ref _projectionMatrix);
+            
+            //ejecutar accion actual
+            executeAction();
 
             //render objetos
             scene.renderObjects();
@@ -79,18 +98,46 @@ namespace App
             SwapBuffers();
         }
 
+        public void executeAction()
+        {
+            //Si existe accion a ejecutar
+            if (actual != null)
+            {
+                //ejecuto la accion
+                LAccions.executeAction(actual, ref timee);
+
+                if (timee > timeLimite)
+                {
+                    //siguiente accion
+                    if (i == LAccions.accionesName.Count - 1) //llegue al limite
+                        i = 0;
+                    else
+                        i = i + 1;
+
+                    actual = LAccions.accionesName[i];
+                    float incr = chgTimeLimiteAct(LAccions.tiempos.Get(actual));
+
+                    //reseteo el tiempo limite
+                    timeLimite = timee + incr; // *5
+                    //timeLimite = timee + 700; // *5
+                }
+            }
+        }
+
+        public float chgTimeLimiteAct(float t)  => t * 100;
+
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
-            inp.processControls(Keyboard.GetState(), cam, scene, ref lastMousePos);
+            ///////inp.processControls(Keyboard.GetState(), cam, scene, ref lastMousePos);
 
             if (Keyboard.GetState().IsKeyDown(Key.Space)) Exit();
-            if (Focused) inp.updateMouseMovement(Mouse.GetState(), cam, ref lastMousePos);
+            //////if (Focused) inp.updateMouseMovement(Mouse.GetState(), cam, ref lastMousePos);
 
             Matrix4 tras = Matrix4.CreateTranslation(new Vector3(0,0,-4.4f));
-            Matrix4 rY = Matrix4.CreateRotationY(-0.5f);
 
             _projectionMatrix = cam.GetViewMatrix()  * tras * Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4, Width / Height, 1.0f, 200.0f);
+
         }
 
 
@@ -106,3 +153,4 @@ namespace App
     }
 
 }
+

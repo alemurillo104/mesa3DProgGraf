@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Estructura\Figura.cs" />
     <Compile Include="Estructura\Parte.cs" />
+    <Compile Include="Models\Accions.cs" />
     <Compile Include="Models\RobotPartes\Extremidades\LArmI.cs" />
     <Compile Include="Models\RobotPartes\Extremidades\LArmS.cs" />
     <Compile Include="Models\RobotPartes\Extremidades\LLegI.cs" />

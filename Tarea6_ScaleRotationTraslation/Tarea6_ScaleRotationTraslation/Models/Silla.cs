@@ -21,6 +21,9 @@ namespace App.Models
 
         public Silla()
         {
+            //step = 0.015f;
+            step = 0.0015f;
+
             this.centro = new Vector3(0f, 0f, 0f);
             this.Position = centro;
 
@@ -39,6 +42,7 @@ namespace App.Models
 
         public Silla(Vector3 centro, float anchoX, float altoY, float profZ, string TextureId = "")
         {
+            step = 0.0007f;
             this.centro = centro;
             this.Position = centro;
 
@@ -116,7 +120,26 @@ namespace App.Models
             foreach (DictionaryEntry parte in partes)
                 partes.Get(parte.Key).RotateZ(dir);
         }
+
+        public override void RotateX(float val)
+        {
+            foreach (DictionaryEntry parte in partes)
+                partes.Get(parte.Key).RotateX(val);
+        }
+
+        public override void RotateY(float val)
+        {
+            foreach (DictionaryEntry parte in partes)
+                partes.Get(parte.Key).RotateY(val);
+        }
+
+        public override void RotateZ(float val)
+        {
+            foreach (DictionaryEntry parte in partes)
+                partes.Get(parte.Key).RotateZ(val);
+        }
         #endregion 
+
 
         #region Position
 
@@ -165,13 +188,29 @@ namespace App.Models
             {
                 ModelMatrix *= partes.Get(parte.Key).ModelMatrix;
             }
-
         }
 
+        public override void MoverAdelanteFrente(bool frente, bool adelante)
+        {
+            Console.Write("MoverAdelanteFrente sw:" + adelante.ToString());
+            if (frente)
+            {
+                if (adelante)
+                    MoverZ(step);
+                else
+                    MoverZ(-step);
+            } else {
 
-        public override void MoverAdelante() { }
-        public override void MoverAtras() { }
+                if (adelante)
+                    MoverZ(-step);
+                else
+                    MoverZ(step);
+            }
+        }
+
+        public override void subir(){}
+        public override void bajar(){}
+        public override void rotarIzquierda(int opt) { }
+        public override void MoverAdelanteIzquierda(bool izq, bool sw) { }
     }
-
-
 }

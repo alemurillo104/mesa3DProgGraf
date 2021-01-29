@@ -45,6 +45,7 @@ namespace App.Classes
         public HashList() => list = new Hashtable();
 
         public T Get(object key) => (T)list[key];
+
         public void Del(string key) => list.Remove(key);
         public void Set(string key, T element) => list[key] = element;
         public void Add(string key, T element) => list.Add(key, element);

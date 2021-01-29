@@ -67,6 +67,24 @@ namespace App.Estructura
                 objects.Get(e.Key).MoverZ(plus);
         }
 
+        public override void MoverX(float val)
+        {
+            foreach (DictionaryEntry e in objects)
+                objects.Get(e.Key).MoverX(val);
+        }
+
+        public override void MoverY(float val)
+        {
+            foreach (DictionaryEntry e in objects)
+                objects.Get(e.Key).MoverY(val);
+        }
+
+        public override void MoverZ(float val)
+        {
+            foreach (DictionaryEntry e in objects)
+                objects.Get(e.Key).MoverZ(val);
+        }
+
         #endregion
 
         #region Rotation
@@ -87,6 +105,24 @@ namespace App.Estructura
             foreach (DictionaryEntry e in objects)
                 objects.Get(e.Key).RotateZ(dir);
         }
+
+        public void RotateX(float val)
+        {
+            foreach (DictionaryEntry e in objects)
+                objects.Get(e.Key).RotateX(val);
+        }
+
+        public void RotateY(float val)
+        {
+            foreach (DictionaryEntry e in objects)
+                objects.Get(e.Key).RotateY(val);
+        }
+
+        public void RotateZ(float val)
+        {
+            foreach (DictionaryEntry e in objects)
+                objects.Get(e.Key).RotateZ(val);
+        }
         #endregion
 
         #region Scale
@@ -95,6 +131,25 @@ namespace App.Estructura
         {
             foreach (DictionaryEntry e in objects)
                 objects.Get(e.Key).setScale(s, plus);
+        }
+        #endregion
+
+        #region Movements
+
+        public void moverEscenarioRX(bool sw)
+        {
+            int val = (sw) ? 1  : -1; 
+            // true = derecha ; false = izquierda
+                            
+            MoverX(step * val);
+            RotateY(sw);
+        }
+
+
+        public void moverEscenarioyEscalar(bool sw)
+        {
+            MoverX(sw);
+            setScale(1, !sw);
         }
         #endregion
     }

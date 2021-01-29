@@ -9,6 +9,8 @@ namespace Tarea6_ScaleRotationTraslation.Estructura
 {
     public abstract class Escenario
     {
+        public float step = 0.005f;
+        
         public Vector3 centro = Vector3.Zero;
 
         public Vector3 Position = Vector3.Zero;
@@ -28,6 +30,10 @@ namespace Tarea6_ScaleRotationTraslation.Estructura
         public abstract void RotateX(bool dir);
         public abstract void RotateY(bool dir);
         public abstract void RotateZ(bool dir);
+
+        public abstract void MoverX(float val);
+        public abstract void MoverY(float val);
+        public abstract void MoverZ(float val);
 
         public Matrix4 matriXRotation = Matrix4.Identity;
     }
