@@ -558,9 +558,9 @@ namespace Tarea6_ScaleRotationTraslation.Models.MesaPartes
         
         public override void RotateX(float val)
         {
-            matriXRotation *= Matrix4.CreateRotationX(Rotation.X + val) *
-                              Matrix4.CreateRotationY(Rotation.Y) *
-                              Matrix4.CreateRotationZ(Rotation.Z);
+            matriXRotation *= Matrix4.CreateRotationX(MathHelper.DegreesToRadians(Rotation.X + val)) *
+                              Matrix4.CreateRotationY(MathHelper.DegreesToRadians(Rotation.Y)) *
+                              Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(Rotation.Z));
         }
 
         public override void RotateY(float val)
@@ -572,9 +572,14 @@ namespace Tarea6_ScaleRotationTraslation.Models.MesaPartes
 
         public override void RotateZ(float val)
         {
-            matriXRotation *= Matrix4.CreateRotationX(Rotation.X) *
-                              Matrix4.CreateRotationY(Rotation.Y) *
-                              Matrix4.CreateRotationZ(Rotation.Z + val);
+            
+            Rotation.Z += val;
+
+            CalculateRotation();
+            /*
+            matriXRotation *= Matrix4.CreateRotationX(MathHelper.DegreesToRadians(Rotation.X)) *
+                              Matrix4.CreateRotationY(MathHelper.DegreesToRadians(Rotation.Y)) *
+                              Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(Rotation.Z + val));*/
         }
 
         public void CalculateRotation()

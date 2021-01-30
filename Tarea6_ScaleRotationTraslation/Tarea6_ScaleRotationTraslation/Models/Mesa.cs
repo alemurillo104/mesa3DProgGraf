@@ -193,7 +193,16 @@ namespace App.Models
 
         public override void rotarIzquierda(int opt) { }
 
-        public override void MoverAdelanteFrente(bool frente, bool sw){}
+        public override void MoverAdelanteFrente(bool frente, bool sw)
+        {
+            if (frente)
+            {
+                if (sw)
+                    MoverX(0.05f);
+                else
+                    MoverX(-0.05f);
+            }
+        }
         public override void MoverAdelanteIzquierda(bool izq, bool sw){}
     }
 }

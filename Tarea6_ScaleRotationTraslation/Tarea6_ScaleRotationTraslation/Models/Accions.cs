@@ -13,7 +13,7 @@ namespace Tarea6_ScaleRotationTraslation.Models
         Camera camera;
         Vector2 lastMousePos;
 
-        public List<string> accionesName; //lista de strings de las acciones que buscara en mi otra lista
+        public List<string> accionesName; 
         public HashList<float> tiempos;
 
         public Accions(Scene s, ref Camera cam, ref Vector2 lastMousePos)
@@ -23,49 +23,49 @@ namespace Tarea6_ScaleRotationTraslation.Models
             this.lastMousePos = lastMousePos;
             accionesName = new List<string>();
             tiempos = new HashList<float>();
-
-
+            
             //Scene
-            addAction("escenarioMoverXP", 5);
-            addAction("escenarioMoverXN", 5);
+            addAction("escenarioMoverXP", 2);
+            addAction("escenarioMoverXN", 2);
 
             //Robot
-            addAction("robotRotarIzq180", 7);
+            addAction("robotRotarIzq180", 3);
 
             //Scene
-            addAction("escenarioRotarYP", 7);
+            addAction("escenarioRotarYP", 3);
 
             //Silla
-            addAction("sillaMoverAtras", 7);
+            addAction("sillaMoverAtras", 3);
 
             //Robot
-            addAction("robotBajarSilla", 7);
+            addAction("robotBajarSilla", 3);
 
             //Scene
-            addAction("escenarioRotarYN", 7);
+            addAction("escenarioRotarYN", 3);
 
             //Robot
-            addAction("robotRotarIzq90", 7);
-            addAction("robotAvanzarIzq", 7);
-            addAction("robotRotarIzq90180", 7);
-            addAction("robotRetrocederIzq", 7);
-            addAction("robotRotarDer90", 7);
+            addAction("robotRotarIzq90", 3);
+            addAction("robotAvanzarIzq", 3);
+            addAction("robotRotarIzq90180", 3);
+            addAction("robotRetrocederIzq", 3);
+            addAction("robotRotarDer90", 3);
 
-            //Mesa
-            addAction("mesaRotarZP", 7);
-            addAction("mesaRotarZN", 7);
+            //Mesa//
+            addAction("mesaRotarZP", 3);
+            addAction("mesaRotarZN", 3);
 
             //Scene
-            addAction("escenarioRotarYN", 7);
+            addAction("escenarioRotarYN", 3);
 
             //Robot
-            addAction("robotSubirSilla", 7);
+            addAction("robotSubirSilla", 3);
 
             //Silla
-            addAction("sillaMoverAdelante", 7);
+            addAction("sillaMoverAdelante", 3);
 
             //Scene
-            addAction("escenarioRotarYP", 7);
+            addAction("escenarioRotarYP", 3);
+
         }
 
         public void addAction(String newAction, float t)
@@ -114,10 +114,12 @@ namespace Tarea6_ScaleRotationTraslation.Models
                 case "mesaRotarZP": rotarZMesa(true); break;
                 case "mesaRotarZN": rotarZMesa(false); break;
 
+                case "mesaMoverXD": mesaMoverX(true); break;
+                case "mesaMoverXA": mesaMoverX(false); break;
+
+
                 default: Console.Write("Default option"); break;
             }
-
-            time = time + 8;
         }
 
         //Scene
@@ -252,10 +254,8 @@ namespace Tarea6_ScaleRotationTraslation.Models
                 {
                     if (sw)
                         f.MoverAdelanteFrente(frente: true, adelante: false);
-                    //f.MoverAtras();
                     else
                         f.MoverAdelanteFrente(frente: true, adelante: true);
-                    //f.MoverAdelante();
                 }
             }
         }
@@ -269,9 +269,24 @@ namespace Tarea6_ScaleRotationTraslation.Models
                 if (f != null)
                 {
                     if (sw)
-                        f.RotateZ(0.015f);
+                        f.RotateZ(0.005f);
                     else
-                        f.RotateZ(-0.015f);
+                        f.RotateZ(-0.005f);
+                }
+            }
+        }
+
+        public void mesaMoverX(bool sw)
+        {
+            if (scene != null)
+            {
+                Figura f = scene.objects.Get("mesa");
+                if (f != null)
+                {
+                    if (sw)
+                        f.MoverAdelanteFrente(frente: true, adelante: true);
+                    else
+                        f.MoverAdelanteFrente(frente: true, adelante: false);
                 }
 
             }
@@ -293,3 +308,14 @@ namespace Tarea6_ScaleRotationTraslation.Models
         }
     }
 }
+
+/*
+//Mesa
+  addAction("mesaRotarZP", 3);
+  addAction("mesaRotarZN", 3);
+*/
+
+/*
+addAction("mesaMoverXD", 0.5f);
+addAction("mesaMoverXA", 0.5f);
+*/

@@ -55,8 +55,8 @@ namespace App
 
             if (LAccions.accionesName.Count > 0)
             {
-                actual = LAccions.accionesName[i]; //Primera accion a repetir hasta timeLimite veces
-                timeLimite = chgTimeLimiteAct(LAccions.tiempos.Get(actual));
+                actual = LAccions.accionesName[i]; //1ra accion 
+                timeLimite = (LAccions.tiempos.Get(actual));
                 Console.Write("Accion Actual= " + actual + "\n");
             }
         }
@@ -81,7 +81,6 @@ namespace App
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
-            timee += e.Time;
             Title = timee.ToString();
             base.OnRenderFrame(e);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
@@ -96,6 +95,7 @@ namespace App
             scene.renderObjects();
 
             SwapBuffers();
+            timee += e.Time;
         }
 
         public void executeAction()
@@ -115,7 +115,7 @@ namespace App
                         i = i + 1;
 
                     actual = LAccions.accionesName[i];
-                    float incr = chgTimeLimiteAct(LAccions.tiempos.Get(actual));
+                    float incr = (LAccions.tiempos.Get(actual));
 
                     //reseteo el tiempo limite
                     timeLimite = timee + incr; // *5
@@ -149,8 +149,6 @@ namespace App
             ShaderProgram.Instance.Dispose();
             base.Exit();
         }
-
-        public float chgTimeLimiteAct(float t) => t * 100;
 
     }
 
