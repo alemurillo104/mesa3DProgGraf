@@ -206,7 +206,7 @@ namespace App.Models
 
         public override void MoverAdelanteFrente(bool frente, bool adelante)
         {
-            Console.Write("MoverAdelanteFrente sw:" + adelante.ToString());
+            //Console.Write("MoverAdelanteFrente sw:" + adelante.ToString()+"\n");
             if (frente)
             {
                 if (adelante)
@@ -224,7 +224,7 @@ namespace App.Models
 
         public override void MoverAdelanteIzquierda(bool izq, bool adelante)
         {
-            Console.Write("MoverAdelanteIzquierda sw:" + adelante.ToString());
+            //Console.Write("MoverAdelanteIzquierda sw:" + adelante.ToString() + "\n");
             if (izq)
             {
                 if (adelante)

@@ -154,26 +154,3 @@ namespace App.Estructura
         #endregion
     }
 }
-
-/*
-    //public RenderObject renderobject;
-    public void renderScene()
-        {
-            renderobject.Bind();
-            CalculateModelMatrix();
-            GL.UniformMatrix4(21, false, ref ModelMatrix);
-            renderobject.Render();
-        }
-
-        public void cargarRenderObject()
-        {
-
-            foreach (DictionaryEntry obj in objects)
-            {
-                Figura a = objects.Get(obj.Key);
-                a.  
-            }
-            //renderobject.Add(new CRenderObj(, s.shaders["default"].Id));
-
-        }
-*/

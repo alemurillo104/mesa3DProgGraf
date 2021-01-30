@@ -2,7 +2,7 @@
 using App.Estructura;
 using App.Utils;
 using OpenTK;
-using System; 
+using System;
 using System.Collections.Generic;
 
 namespace Tarea6_ScaleRotationTraslation.Models
@@ -85,24 +85,20 @@ namespace Tarea6_ScaleRotationTraslation.Models
 
         public void executeAction(String actualAction, ref double time)
         {
-            Console.Write("--------------" + time.ToString() + "\n");
-            time = time + 8;
-            Console.Write("+++++++-------" + time.ToString() + "\n");
-
             switch (actualAction)
             {
                 //Scene
-                case "escenarioMoverXP": moverEscenarioX(true);  break;
-                case "escenarioMoverXN": moverEscenarioX(false); break;
+                case "escenarioMoverXP": moverEscenarioX(true); break;
+                case "escenarioMoverXN": moverEscenarioX(false);break;
 
-                case "escenarioRotarYP": escenaRotarIzq(true); break;
+                case "escenarioRotarYP": escenaRotarIzq(true);  break;
                 case "escenarioRotarYN": escenaRotarIzq(false); break;
 
                 //Robot
                 case "robotAvanzarIzq"   : robotAvanzarIzq(true); break;
                 case "robotRetrocederIzq": robotAvanzarIzq(false);break;
 
-                case "robotBajarSilla": robotBajarSilla();  break;
+                case "robotBajarSilla": robotBajarSilla(); break;
                 case "robotSubirSilla": robotSubirSilla(); break;
 
                 case "robotRotarIzq90"   : robotRotarIzq(1); break;
@@ -111,15 +107,17 @@ namespace Tarea6_ScaleRotationTraslation.Models
                 case "robotRotarIzq180"  : robotRotarIzq(4); break;
 
                 //Silla
-                case "sillaMoverAtras"   : moverSillaAtras(true);  break;
+                case "sillaMoverAtras"   : moverSillaAtras(true); break;
                 case "sillaMoverAdelante": moverSillaAtras(false); break;
 
                 //Mesa
-                case "mesaRotarZP": rotarZMesa(true);  break;
+                case "mesaRotarZP": rotarZMesa(true); break;
                 case "mesaRotarZN": rotarZMesa(false); break;
 
                 default: Console.Write("Default option"); break;
             }
+
+            time = time + 8;
         }
 
         //Scene
@@ -156,10 +154,13 @@ namespace Tarea6_ScaleRotationTraslation.Models
 
                 if (f != null)
                 {
-                    if (sw) {
+                    if (sw)
+                    {
                         scene.MoverZ(!sw); //La escena se mueve hacia atras
                         f.MoverAdelanteIzquierda(izq: true, adelante: true);
-                    } else {
+                    }
+                    else
+                    {
                         scene.MoverZ(!sw); //se mueve hacia adelante
                         f.MoverAdelanteIzquierda(izq: true, adelante: false);
                     }
@@ -175,11 +176,14 @@ namespace Tarea6_ScaleRotationTraslation.Models
 
                 if (f != null)
                 {
-                    if (sw){
+                    if (sw)
+                    {
                         scene.MoverZ(!sw);
                         f.MoverAdelanteIzquierda(izq: false, adelante: true);
-                    } else {
-                        scene.MoverZ(!sw); 
+                    }
+                    else
+                    {
+                        scene.MoverZ(!sw);
                         f.MoverAdelanteIzquierda(izq: false, adelante: false);
                     }
                 }
@@ -201,7 +205,7 @@ namespace Tarea6_ScaleRotationTraslation.Models
             if (scene != null)
             {
                 Figura f = scene.objects.Get("robot");
-                if (f!= null) f.subir();
+                if (f != null) f.subir();
             }
         }
 
@@ -248,10 +252,10 @@ namespace Tarea6_ScaleRotationTraslation.Models
                 {
                     if (sw)
                         f.MoverAdelanteFrente(frente: true, adelante: false);
-                        //f.MoverAtras();
+                    //f.MoverAtras();
                     else
                         f.MoverAdelanteFrente(frente: true, adelante: true);
-                        //f.MoverAdelante();
+                    //f.MoverAdelante();
                 }
             }
         }

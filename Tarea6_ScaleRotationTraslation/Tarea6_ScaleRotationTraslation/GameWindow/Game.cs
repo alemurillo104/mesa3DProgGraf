@@ -28,8 +28,7 @@ namespace App
 
         int i = 0;
         string actual;
-        double timee = 0;
-        double timeLimite = 700;
+        double timee = 0, timeLimite;
 
         Accions LAccions; //lista de acciones reales
 
@@ -44,20 +43,21 @@ namespace App
             s.MoverZ(-0.3f);
             r = new Robot();
             r.MoverY(0.87f);
-            
+
             scene.add("mesa", m);
             scene.add("silla", s);
             scene.add("robot", r);
-            
+
             cam = new Camera();
             inp = new InputController(scene);
 
             LAccions = new Accions(scene, ref cam, ref lastMousePos);
-           
+
             if (LAccions.accionesName.Count > 0)
             {
                 actual = LAccions.accionesName[i]; //Primera accion a repetir hasta timeLimite veces
                 timeLimite = chgTimeLimiteAct(LAccions.tiempos.Get(actual));
+                Console.Write("Accion Actual= " + actual + "\n");
             }
         }
 
@@ -88,7 +88,7 @@ namespace App
 
             GL.UseProgram(ShaderProgram.Instance.Id);
             GL.UniformMatrix4(20, false, ref _projectionMatrix);
-            
+
             //ejecutar accion actual
             executeAction();
 
@@ -119,30 +119,30 @@ namespace App
 
                     //reseteo el tiempo limite
                     timeLimite = timee + incr; // *5
-                    //timeLimite = timee + 700; // *5
+                    Console.Write("Accion Actual= " + actual + "\n");
+
                 }
             }
         }
 
-        public float chgTimeLimiteAct(float t)  => t * 100;
 
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
-            ///////inp.processControls(Keyboard.GetState(), cam, scene, ref lastMousePos);
+            //inp.processControls(Keyboard.GetState(), cam, scene, ref lastMousePos);
 
             if (Keyboard.GetState().IsKeyDown(Key.Space)) Exit();
-            //////if (Focused) inp.updateMouseMovement(Mouse.GetState(), cam, ref lastMousePos);
+            //if (Focused) inp.updateMouseMovement(Mouse.GetState(), cam, ref lastMousePos);
 
-            Matrix4 tras = Matrix4.CreateTranslation(new Vector3(0,0,-4.4f));
+            Matrix4 tras = Matrix4.CreateTranslation(new Vector3(0, 0, -4.4f));
 
-            _projectionMatrix = cam.GetViewMatrix()  * tras * Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4, Width / Height, 1.0f, 200.0f);
+            _projectionMatrix = cam.GetViewMatrix() * tras * Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4, Width / Height, 1.0f, 200.0f);
 
         }
 
 
         private void OnClosed(object sender, EventArgs eventArgs) => Exit();
-        
+
         public override void Exit()
         {
             Debug.WriteLine("Exit called");
@@ -150,7 +150,8 @@ namespace App
             base.Exit();
         }
 
+        public float chgTimeLimiteAct(float t) => t * 100;
+
     }
 
 }
-

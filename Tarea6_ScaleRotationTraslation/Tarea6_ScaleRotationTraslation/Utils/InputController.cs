@@ -35,7 +35,7 @@ namespace App.Utils
             {
                 cambiarFiguraInput(scene.objects);
                 actual = scene.objects.Get(actualName);
-                Console.Write("Fig Actual: " + actualName + "\n");
+                //Console.Write("Fig Actual: " + actualName + "\n");
             } else {
                 Console.Write("Escena vacia, cargar objetos \n");
             }

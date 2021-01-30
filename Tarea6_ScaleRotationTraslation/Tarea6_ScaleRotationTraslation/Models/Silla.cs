@@ -192,7 +192,7 @@ namespace App.Models
 
         public override void MoverAdelanteFrente(bool frente, bool adelante)
         {
-            Console.Write("MoverAdelanteFrente sw:" + adelante.ToString());
+            //Console.Write("MoverAdelanteFrente sw:" + adelante.ToString() + "\n");
             if (frente)
             {
                 if (adelante)
