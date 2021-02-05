@@ -8,6 +8,7 @@ using OpenTK.Input;
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Threading;
 using Tarea6_ScaleRotationTraslation.Models;
 using Tarea6_ScaleRotationTraslation.RCommon;
 
@@ -25,12 +26,10 @@ namespace App
 
         private Matrix4 _projectionMatrix;
         Vector2 lastMousePos = Vector2.One;
+        
+        double timee = 0;
 
-        int i = 0;
-        string actual;
-        double timee = 0, timeLimite;
-
-        Accions LAccions; //lista de acciones reales
+        Acciones acciones; //lista de acciones reales
 
         public Game() : base(1050, 612, GraphicsMode.Default, "Mesa3D") { }
 
@@ -51,14 +50,9 @@ namespace App
             cam = new Camera();
             inp = new InputController(scene);
 
-            LAccions = new Accions(scene, ref cam, ref lastMousePos);
+            acciones = new Acciones(scene, ref cam, ref lastMousePos);
 
-            if (LAccions.accionesName.Count > 0)
-            {
-                actual = LAccions.accionesName[i]; //1ra accion 
-                timeLimite = (LAccions.tiempos.Get(actual));
-                Console.Write("Accion Actual= " + actual + "\n");
-            }
+            acciones.cargarListaAcciones(filename: "movimientos.json");
         }
 
         protected override void OnLoad(EventArgs e)
@@ -89,40 +83,13 @@ namespace App
             GL.UniformMatrix4(20, false, ref _projectionMatrix);
 
             //ejecutar accion actual
-            executeAction();
-
+            acciones.ejecutarAccion();
+            
             //render objetos
             scene.renderObjects();
 
             SwapBuffers();
             timee += e.Time;
-        }
-
-        public void executeAction()
-        {
-            //Si existe accion a ejecutar
-            if (actual != null)
-            {
-                //ejecuto la accion
-                LAccions.executeAction(actual, ref timee);
-
-                if (timee > timeLimite)
-                {
-                    //siguiente accion
-                    if (i == LAccions.accionesName.Count - 1) //llegue al limite
-                        i = 0;
-                    else
-                        i = i + 1;
-
-                    actual = LAccions.accionesName[i];
-                    float incr = (LAccions.tiempos.Get(actual));
-
-                    //reseteo el tiempo limite
-                    timeLimite = timee + incr; // *5
-                    Console.Write("Accion Actual= " + actual + "\n");
-
-                }
-            }
         }
 
 
@@ -149,7 +116,5 @@ namespace App
             ShaderProgram.Instance.Dispose();
             base.Exit();
         }
-
     }
-
 }

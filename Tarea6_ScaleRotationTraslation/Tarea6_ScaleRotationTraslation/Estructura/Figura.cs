@@ -1,4 +1,5 @@
-﻿using OpenTK;
+﻿using App.Classes;
+using OpenTK;
 using OpenTK.Graphics;
 
 
@@ -7,6 +8,8 @@ namespace App.Estructura
     public abstract class Figura
     {
         public float cx, cy, cz;
+        public HashList<Parte> partes;
+
         public Vector3 centro = Vector3.Zero;
         public Color4 color = new Color4(0f, 0f, 1f, 1f);
         public float step = 0.005f;

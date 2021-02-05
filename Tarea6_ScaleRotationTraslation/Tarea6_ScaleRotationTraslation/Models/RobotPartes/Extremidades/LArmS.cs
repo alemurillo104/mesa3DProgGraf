@@ -152,7 +152,7 @@ namespace Tarea6_ScaleRotationTraslation.Models.RobotPartes.Extremidades
         public override void setScale(float s, bool plus)
         {
             Scale = (plus) ? new Vector3(Scale.X * 1.1f, Scale.Y * 1.1f, Scale.Z * 1.1f)
-                           : new Vector3(Scale.X * 0.9f, Scale.Y * 0.9f, Scale.Z * 0.9f);
+                           : new Vector3(Scale.X * 0.91f, Scale.Y * 0.91f, Scale.Z * 0.91f);
         }
         #endregion 
 

@@ -12,7 +12,6 @@ namespace App.Models
 {
     public class Mesa : Figura
     {
-        HashList<Parte> partes;
         List<RenderObject> renderOb;
 
         public Mesa()
@@ -23,9 +22,6 @@ namespace App.Models
             float anchoX = 0.75f ;
             float altoY  = 0.75f;
             float profZ  = 0.25f ;
-
-            /*this.textureId = "";
-            this.isTextured = false;*/
 
             this.textureId = "madera.png";
             this.isTextured = true;

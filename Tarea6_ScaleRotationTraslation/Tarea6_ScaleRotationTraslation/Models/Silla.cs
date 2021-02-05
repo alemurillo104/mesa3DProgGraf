@@ -16,13 +16,11 @@ namespace App.Models
 {
     class Silla : Figura
     {
-        HashList<Parte> partes;
         List<RenderObject> renderOb;
 
         public Silla()
         {
-            //step = 0.015f;
-            step = 0.0015f;
+            step = 0.0015f; //0.015f
 
             this.centro = new Vector3(0f, 0f, 0f);
             this.Position = centro;

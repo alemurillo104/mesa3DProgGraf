@@ -515,12 +515,14 @@ namespace Tarea6_ScaleRotationTraslation.Models.MesaPartes
 
         public override void setScale(float s, bool plus)
         {
+            //Scale = new Vector3(Scale.X * s, Scale.Y * s, Scale.Z * s);
+
             if (plus)
                 Scale = new Vector3(Scale.X * 1.1f, Scale.Y * 1.1f, Scale.Z * 1.1f);
             else
-                Scale = new Vector3(Scale.X * 0.9f, Scale.Y * 0.9f, Scale.Z * 0.9f);
+                Scale = new Vector3(Scale.X * 0.91f, Scale.Y * 0.91f, Scale.Z * 0.91f);
         }
-
+            
         #endregion
 
         #region Rotation

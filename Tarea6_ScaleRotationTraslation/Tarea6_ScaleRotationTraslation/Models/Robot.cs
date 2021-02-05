@@ -13,7 +13,6 @@ namespace App.Models
 {
     public class Robot : Figura
     {
-        HashList<Parte> partes;
         List<RenderObject> renderOb;
 
         bool pieIzquierdoAdelante = true;

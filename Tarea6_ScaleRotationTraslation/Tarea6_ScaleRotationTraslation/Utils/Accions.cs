@@ -1,47 +1,36 @@
 ﻿using App.Classes;
 using App.Estructura;
 using App.Utils;
+using Newtonsoft.Json;
 using OpenTK;
 using System;
 using System.Collections.Generic;
+using System.IO;
+
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Tarea6_ScaleRotationTraslation.Models
 {
-    public class Accions
+    public class Accions2
     {
         Scene scene;
         Camera camera;
         Vector2 lastMousePos;
 
-        public List<string> accionesName; 
-        public HashList<float> tiempos;
+        public List<Accion> acciones;
 
-        public Accions(Scene s, ref Camera cam, ref Vector2 lastMousePos)
+        public Accions2(Scene s, ref Camera cam, ref Vector2 lastMousePos)
         {
             this.scene = s;
             this.camera = cam;
             this.lastMousePos = lastMousePos;
-            accionesName = new List<string>();
-            tiempos = new HashList<float>();
-            
-            //Scene
-            addAction("escenarioMoverXP", 2);
-            addAction("escenarioMoverXN", 2);
+
+            acciones = new List<Accion>();
 
             //Robot
             addAction("robotRotarIzq180", 3);
-
-            //Scene
-            addAction("escenarioRotarYP", 3);
-
-            //Silla
-            addAction("sillaMoverAtras", 3);
-
-            //Robot
-            addAction("robotBajarSilla", 3);
-
-            //Scene
-            addAction("escenarioRotarYN", 3);
 
             //Robot
             addAction("robotRotarIzq90", 3);
@@ -49,38 +38,23 @@ namespace Tarea6_ScaleRotationTraslation.Models
             addAction("robotRotarIzq90180", 3);
             addAction("robotRetrocederIzq", 3);
             addAction("robotRotarDer90", 3);
-
-            //Mesa//
-            addAction("mesaRotarZP", 3);
-            addAction("mesaRotarZN", 3);
-
-            //Scene
-            addAction("escenarioRotarYN", 3);
-
-            //Robot
-            addAction("robotSubirSilla", 3);
-
-            //Silla
-            addAction("sillaMoverAdelante", 3);
-
-            //Scene
-            addAction("escenarioRotarYP", 3);
-
         }
+
+
 
         public void addAction(String newAction, float t)
         {
-            if (!accionesName.Contains(newAction))
-                tiempos.Add(newAction, t);
-
-            accionesName.Add(newAction);
+            //acciones.Add(new Accion(obj: "", action: newAction, time: t));
         }
 
         public bool deleteAction(String action)
         {
-            tiempos.Del(action);
-            accionesName.Remove(action);
-            return !(accionesName.Contains(action));
+            foreach (Accion a in acciones)
+            {
+                if (a.accion == action)
+                    acciones.Remove(a);
+            }
+            return true;
         }
 
         public void executeAction(String actualAction, ref double time)
@@ -89,25 +63,25 @@ namespace Tarea6_ScaleRotationTraslation.Models
             {
                 //Scene
                 case "escenarioMoverXP": moverEscenarioX(true); break;
-                case "escenarioMoverXN": moverEscenarioX(false);break;
+                case "escenarioMoverXN": moverEscenarioX(false); break;
 
-                case "escenarioRotarYP": escenaRotarIzq(true);  break;
+                case "escenarioRotarYP": escenaRotarIzq(true); break;
                 case "escenarioRotarYN": escenaRotarIzq(false); break;
 
                 //Robot
-                case "robotAvanzarIzq"   : robotAvanzarIzq(true); break;
-                case "robotRetrocederIzq": robotAvanzarIzq(false);break;
+                case "robotAvanzarIzq": robotAvanzarIzq(true); break;
+                case "robotRetrocederIzq": robotAvanzarIzq(false); break;
 
                 case "robotBajarSilla": robotBajarSilla(); break;
                 case "robotSubirSilla": robotSubirSilla(); break;
 
-                case "robotRotarIzq90"   : robotRotarIzq(1); break;
+                case "robotRotarIzq90": robotRotarIzq(1); break;
                 case "robotRotarIzq90180": robotRotarIzq(2); break;
-                case "robotRotarDer90"   : robotRotarIzq(3); break;
-                case "robotRotarIzq180"  : robotRotarIzq(4); break;
+                case "robotRotarDer90": robotRotarIzq(3); break;
+                case "robotRotarIzq180": robotRotarIzq(4); break;
 
                 //Silla
-                case "sillaMoverAtras"   : moverSillaAtras(true); break;
+                case "sillaMoverAtras": moverSillaAtras(true); break;
                 case "sillaMoverAdelante": moverSillaAtras(false); break;
 
                 //Mesa
@@ -121,7 +95,7 @@ namespace Tarea6_ScaleRotationTraslation.Models
                 default: Console.Write("Default option"); break;
             }
         }
-
+      
         //Scene
         public void moverEscenarioyEscalar(bool sw)
         {
