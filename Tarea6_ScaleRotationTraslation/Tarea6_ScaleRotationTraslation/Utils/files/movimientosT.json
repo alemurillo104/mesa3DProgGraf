@@ -1,0 +1,32 @@
+﻿{
+  "movimientos": [
+
+    //rotar scene
+
+    {
+      "objeto": "robot",
+      "accion": "mover.x.-10",
+      "tiempo": 2000,
+      "partes": []
+    },
+    {
+      "objeto": "robot",
+      "accion": "mover.x.10",
+      "tiempo": 2000,
+      "partes": []
+    },
+
+    {
+      "objeto": "robot",
+      "accion": "mover.x.-10",
+      "tiempo": 2000,
+      "partes": []
+    },
+    {
+      "objeto": "robot",
+      "accion": "mover.x.10",
+      "tiempo": 2000,
+      "partes": []
+    }
+  ]
+}

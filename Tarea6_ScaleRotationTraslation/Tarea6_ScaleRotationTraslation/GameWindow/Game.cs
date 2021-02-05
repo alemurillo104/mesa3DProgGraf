@@ -41,7 +41,8 @@ namespace App
             s = new Silla();
             s.MoverZ(-0.3f);
             r = new Robot();
-            r.MoverY(0.87f);
+            //r.MoverY(0.87f);
+            r.MoverX(-1.5f);
 
             scene.add("mesa", m);
             scene.add("silla", s);
@@ -52,7 +53,7 @@ namespace App
 
             acciones = new Acciones(scene, ref cam, ref lastMousePos);
 
-            acciones.cargarListaAcciones(filename: "movimientos.json");
+            //acciones.cargarListaAcciones(filename: "movimientosT.json");
         }
 
         protected override void OnLoad(EventArgs e)
@@ -83,8 +84,10 @@ namespace App
             GL.UniformMatrix4(20, false, ref _projectionMatrix);
 
             //ejecutar accion actual
-            acciones.ejecutarAccion();
-            
+            //acciones.ejecutarAccion2();
+          ///  acciones.ejecutarAccion();
+            acciones.ejecutarAccion3(ref timee);
+
             //render objetos
             scene.renderObjects();
 
@@ -96,10 +99,10 @@ namespace App
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
-            //inp.processControls(Keyboard.GetState(), cam, scene, ref lastMousePos);
+            inp.processControls(Keyboard.GetState(), cam, scene, ref lastMousePos);
 
             if (Keyboard.GetState().IsKeyDown(Key.Space)) Exit();
-            //if (Focused) inp.updateMouseMovement(Mouse.GetState(), cam, ref lastMousePos);
+            if (Focused) inp.updateMouseMovement(Mouse.GetState(), cam, ref lastMousePos);
 
             Matrix4 tras = Matrix4.CreateTranslation(new Vector3(0, 0, -4.4f));
 

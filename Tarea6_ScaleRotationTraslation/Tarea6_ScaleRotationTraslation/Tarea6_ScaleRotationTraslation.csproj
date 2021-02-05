@@ -54,6 +54,7 @@
     <Compile Include="Estructura\Parte.cs" />
     <Compile Include="Models\Acciones.cs" />
     <Compile Include="Models\Movimientos.cs" />
+    <Compile Include="Models\Personaje.cs" />
     <Compile Include="Utils\Accions.cs" />
     <Compile Include="Models\RobotPartes\Extremidades\LArmI.cs" />
     <Compile Include="Models\RobotPartes\Extremidades\LArmS.cs" />
@@ -93,6 +94,7 @@
     <None Include="Shaders\vs.glsl" />
     <None Include="Shaders\vs2.glsl" />
     <None Include="Utils\files\movimientos.json" />
+    <None Include="Utils\files\movimientosT.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Utils\images\madera.png" />

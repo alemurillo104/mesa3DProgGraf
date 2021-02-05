@@ -8,7 +8,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+
+using System.Timers;
 
 namespace Tarea6_ScaleRotationTraslation.Models
 {
@@ -25,9 +26,20 @@ namespace Tarea6_ScaleRotationTraslation.Models
         Figura actualf;
         float timee = 0, timeLimite = 0;
 
+        bool enEjecusion = false;
+
+        Thread miHilo;
+        int initcant = 0;
+
         Movimientos acc;
 
         int ite = 0;
+
+        float timeLimite2;
+        double t2;
+
+        System.Timers.Timer tm;
+
         public Acciones(Scene scene, ref Camera cam, ref Vector2 lastmp)
         {
             this.scene = scene;
@@ -48,6 +60,12 @@ namespace Tarea6_ScaleRotationTraslation.Models
             //saco la primera
             actual = acciones[ia];
             timeLimite = actual.tiempo;
+
+            timeLimite2 = timeLimite / 1000;
+            t2 = double.Parse(timeLimite2.ToString());
+            Console.WriteLine("t2 wuuuuuuuuuuuuuuuuuuu= "+t2.ToString());
+
+            tm = new System.Timers.Timer(actual.tiempo);
         }
 
         public void cargarListaAcciones()
@@ -56,6 +74,42 @@ namespace Tarea6_ScaleRotationTraslation.Models
             acciones = cargarAcciones();
             actual = acciones[ia];
             timeLimite = actual.tiempo;
+        }
+
+
+        public void ejecutarAccion3(ref double tiempito)//getNewAction
+        {
+            //int dato = int.Parse(tiempito.ToString());
+            //Console.WriteLine(dato.ToString());
+            //Console.WriteLine(dato.ToString());
+            //Si existe accion a ejecutar
+            if (actual != null)
+            {
+                //ejecuto la accion
+                executeAction();
+
+                if (tiempito >= t2) //se cumplio 
+                {
+                    timee = 0;
+                    //siguiente accion
+                    if (ia == acciones.Count - 1) //llegue al limite
+                        ia = 0;
+                    else
+                        ia = ia + 1;
+
+                    actual = acciones[ia];
+
+                    //reseteo el tiempo limite
+                    timeLimite = actual.tiempo;
+
+                    timeLimite2 = timeLimite / 1000;
+                    t2 = double.Parse(timeLimite2.ToString()) + tiempito;
+
+                    tm = new System.Timers.Timer(actual.tiempo);
+
+                    Console.Write("Accion Actual= " + actual.accion + "\n");
+                }
+            }
         }
 
 
@@ -80,9 +134,12 @@ namespace Tarea6_ScaleRotationTraslation.Models
 
                     //reseteo el tiempo limite
                     timeLimite = actual.tiempo;
-                    Console.Write("Accion Actual= " + actual.accion + "\n");
+                    tm = new System.Timers.Timer(actual.tiempo);
 
-                } else {
+                    Console.Write("Accion Actual= " + actual.accion + "\n");
+                }
+                else
+                {
                     timee++; // INC
                 }
             }
@@ -92,7 +149,7 @@ namespace Tarea6_ScaleRotationTraslation.Models
 
         private void executeAction()
         {
-            actualf = scene.objects.Get(actual.objeto); // null si es escena 
+            actualf = scene.objects.Get(actual.objeto); // null si es escena o tambien puede ser la camara
             string[] aux = actual.accion.Split('.');
 
             int i = 0;
@@ -112,7 +169,7 @@ namespace Tarea6_ScaleRotationTraslation.Models
 
                             if (actualf != null)
                             {
-                                if (actual.partes.Length > 0)//se aplica a ciertas partes
+                                if (actual.partes.Length > 0)//se aplica a ciertas partes, but not sure
                                 {
                                     foreach (string parte in actual.partes)
                                     {
@@ -123,7 +180,9 @@ namespace Tarea6_ScaleRotationTraslation.Models
                                             case "z": actualf.partes.Get(parte).MoverZ(valor); break;
                                         }
                                     }
-                                } else { //mover al todo
+                                }
+                                else
+                                { //mover al todo
                                     switch (aux[i + 1])
                                     {
                                         case "x": actualf.MoverX(valor); break;
@@ -131,7 +190,9 @@ namespace Tarea6_ScaleRotationTraslation.Models
                                         case "z": actualf.MoverZ(valor); break;
                                     }
                                 }
-                            } else {
+                            }
+                            else
+                            {
                                 switch (aux[i + 1])
                                 {
                                     case "x": scene.MoverX(valor); break;
@@ -165,7 +226,9 @@ namespace Tarea6_ScaleRotationTraslation.Models
                                             case "z": actualf.partes.Get(parte).RotateZ(valor); break;
                                         }
                                     }
-                                } else { //mover al todo
+                                }
+                                else
+                                { //mover al todo
                                     switch (aux[i + 1])
                                     {
                                         case "x": actualf.RotateX(valor); break;
@@ -174,7 +237,9 @@ namespace Tarea6_ScaleRotationTraslation.Models
                                     }
                                 }
 
-                            } else {
+                            }
+                            else
+                            {
                                 switch (aux[i + 1])
                                 {
                                     case "x": RotarX((valor > 0) ? true : false); break;
@@ -199,12 +264,16 @@ namespace Tarea6_ScaleRotationTraslation.Models
                                 foreach (string parte in actual.partes)
                                     actualf.partes.Get(parte).setScale(valor, (valor > 0) ? true : false);
 
-                            } else {
+                            }
+                            else
+                            {
                                 actualf.setScale(valor, (valor > 0) ? true : false);
                             }
-                        } else {
+                        }
+                        else
+                        {
                             //scene.setScale(valor, (valor > 0) ? true : false);
-                            scene.setScale(valor/100, (valor > 0) ? true : false);
+                            scene.setScale(valor / 100, (valor > 0) ? true : false);
                         }
                     }
                 }
@@ -247,6 +316,18 @@ namespace Tarea6_ScaleRotationTraslation.Models
         #endregion
 
 
+        public float grados(float val)
+        {
+            float dato = 0;
+            switch (val)
+            {
+                case 90: dato = 1.5f; break;
+                case -90: dato = -1.5f; break;
+                case 180: dato = 3f; break;
+                case -180: dato = -3f; break;
+            }
+            return dato;
+        }
         #region cm
 
         //Camera
@@ -265,19 +346,103 @@ namespace Tarea6_ScaleRotationTraslation.Models
         }
         #endregion
 
-        public float grados(float val)
+        #region trabajando con hilos but no me sale aun 
+
+        public void ejecutarAccion2()//getNewAction
         {
-            float dato = 0;
-            switch (val)
+            //Si existe accion a ejecutar
+            if (actual != null)
             {
-                case  90 : dato =  1.5f; break;
-                case -90 : dato = -1.5f; break;
-                case  180: dato =  3f;   break;
-                case -180: dato = -3f;   break;
+                //ejecuto la accion
+                if (!enEjecusion)
+                {
+                    enEjecusion = true;
+                    //enEjecusion = !enEjecusion;
+                    miHilo = new Thread(() => ejecutarAccionTiempoHilo());
+
+                    miHilo.Start();
+                }
             }
-            return dato;
         }
-        
+
+        public void ejecutarAccionTiempoHilo()
+        {
+            Console.WriteLine("entro aqui----------------{0}", initcant);
+            initcant++;
+
+            while (enEjecusion)
+            {
+
+                ejecutar3();
+                //executeAction();
+                Console.WriteLine(ite.ToString());
+
+                if (timee == timeLimite)
+                {
+                    enEjecusion = false;
+                    //enEjecusion = !enEjecusion;
+                    Console.WriteLine("SE SALIOOOOOOOOOOOOOOOOOOOOOOO ite={0}", ite);
+                    ite = 0;
+
+                    //sgte
+                    timee = 0;
+
+                    //siguiente accion
+                    if (ia == acciones.Count - 1) //llegue al limite
+                        ia = 0;
+                    else
+                        ia = ia + 1;
+
+                    actual = acciones[ia];
+
+                    //reseteo el tiempo limite
+                    timeLimite = actual.tiempo;
+                    Console.Write("Accion Actual= " + actual + "\n");
+                    
+
+                    //timeLimite = 0;
+                    //miHilo.Abort();
+                    
+                    
+                    return;
+                }
+                timee++;
+                ite++;
+            }
+        }
+
+        public void ejecutar3()
+        {
+            actualf = scene.objects.Get(actual.objeto); // null si es escena o tambien puede ser la camara
+            string[] aux = actual.accion.Split('.');
+
+            int i = 0;
+            float valor;
+
+            if (aux.Length > 0)
+            {
+                if (aux[i].CompareTo("mover") == 0) //la accion es mover
+                {
+                    if (aux[i + 1] == "x" || aux[i + 1] == "y" || aux[i + 1] == "z")//mover x, y, z
+                    {
+                        //tratemos de parsear el valor
+                        bool v = float.TryParse(aux[i + 2], out valor);
+                        if (v)
+                        {
+                            valor = valor / actual.tiempo;//
+                            //Console.WriteLine("VALOR = {0}", valor.ToString());
+                            switch (aux[i + 1])
+                            {
+                                case "x": actualf.MoverX(valor); break;
+                                case "y": actualf.MoverY(valor); break;
+                                case "z": actualf.MoverZ(valor); break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        #endregion
     }
 
 
