@@ -515,8 +515,6 @@ namespace Tarea6_ScaleRotationTraslation.Models.MesaPartes
 
         public override void setScale(float s, bool plus)
         {
-            //Scale = new Vector3(Scale.X * s, Scale.Y * s, Scale.Z * s);
-
             if (plus)
                 Scale = new Vector3(Scale.X * 1.1f, Scale.Y * 1.1f, Scale.Z * 1.1f);
             else
@@ -574,14 +572,9 @@ namespace Tarea6_ScaleRotationTraslation.Models.MesaPartes
 
         public override void RotateZ(float val)
         {
-            
             Rotation.Z += val;
 
             CalculateRotation();
-            /*
-            matriXRotation *= Matrix4.CreateRotationX(MathHelper.DegreesToRadians(Rotation.X)) *
-                              Matrix4.CreateRotationY(MathHelper.DegreesToRadians(Rotation.Y)) *
-                              Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(Rotation.Z + val));*/
         }
 
         public void CalculateRotation()

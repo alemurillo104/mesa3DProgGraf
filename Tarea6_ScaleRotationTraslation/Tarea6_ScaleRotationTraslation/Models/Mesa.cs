@@ -83,10 +83,6 @@ namespace App.Models
 
         public override void CalculateModelMatrix()
         {
-            //MODIFICAR LA POSICION EN LA PARTE 
-
-            Position = new Vector3(Position.X, Position.Y + 0.092f, Position.Z - 2.4f);
-
             ModelMatrix = Matrix4.CreateScale(Scale) *
                          Matrix4.CreateRotationX(Rotation.X) *
                          Matrix4.CreateRotationY(Rotation.Y) *

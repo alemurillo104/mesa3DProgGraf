@@ -1,7 +1,7 @@
 ﻿{
   "movimientos": [
 
-    //rotar scene
+    //robot
 
     {
       "objeto": "robot",

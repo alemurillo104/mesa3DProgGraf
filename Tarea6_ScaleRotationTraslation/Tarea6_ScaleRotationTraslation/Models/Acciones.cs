@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace Tarea6_ScaleRotationTraslation.Models
 {
@@ -25,8 +26,6 @@ namespace Tarea6_ScaleRotationTraslation.Models
         Movimientos acc;
 
         double timeLimite = 0;
-
-        //System.Timers.Timer tm;
 
         public Acciones(Scene scene, ref Camera cam, ref Vector2 lastmp)
         {
@@ -48,7 +47,7 @@ namespace Tarea6_ScaleRotationTraslation.Models
 
         public void cargarListaAcciones()
         {
-            leerAccionesFromFile(filename: "movimientos.json");
+            leerAccionesFromFile(filename: "movimientosT.json");
             acciones = cargarAcciones();
             actual = acciones[ia];
             timeLimite = setTime(actual.tiempo);
@@ -76,14 +75,11 @@ namespace Tarea6_ScaleRotationTraslation.Models
                     //reseteo el tiempo limite
                     timeLimite = setTime(actual.tiempo) + time;
 
-                    //tm = new System.Timers.Timer(actual.tiempo);
                     Console.Write("Acc Actual= " + actual.accion + "\n");
                 }
             }
         }
 
-
-        
         private void executeAction()
         {
             actualf = scene.objects.Get(actual.objeto); //getfigura
@@ -207,7 +203,6 @@ namespace Tarea6_ScaleRotationTraslation.Models
                         }
                         else
                         {
-                            //scene.setScale(valor, (valor > 0) ? true : false);
                             scene.setScale(valor / 100, (valor > 0) ? true : false);
                         }
                     }
@@ -215,12 +210,6 @@ namespace Tarea6_ScaleRotationTraslation.Models
             }
         }
 
-
-        public double setTime(float tiempo)
-        {
-            float t = tiempo / 1000;
-            return double.Parse(t.ToString());
-        }
 
         #region ReadFromFile
 
@@ -255,6 +244,14 @@ namespace Tarea6_ScaleRotationTraslation.Models
         }
         #endregion
 
+
+
+
+        public double setTime(float tiempo)
+        {
+            float t = tiempo / 1000;
+            return double.Parse(t.ToString());
+        }
 
         #region cm
 

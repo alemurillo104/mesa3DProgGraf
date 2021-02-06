@@ -80,6 +80,11 @@
     <Compile Include="RCommon\ShaderProgram.cs" />
     <Compile Include="RCommon\TRenderObj.cs" />
     <Compile Include="RCommon\Vertex.cs" />
+    <Compile Include="Settings1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings1.settings</DependentUpon>
+    </Compile>
     <Compile Include="Utils\Camera.cs" />
     <Compile Include="Utils\InputController.cs" />
   </ItemGroup>
@@ -87,11 +92,14 @@
     <None Include="App.config" />
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
+    <None Include="Settings1.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Shaders\fg.glsl" />
     <None Include="Shaders\fg2.glsl" />
     <None Include="Shaders\vs.glsl" />
     <None Include="Shaders\vs2.glsl" />
-    <None Include="Utils\files\movimientos.json" />
     <None Include="Utils\files\movimientosT.json" />
   </ItemGroup>
   <ItemGroup>

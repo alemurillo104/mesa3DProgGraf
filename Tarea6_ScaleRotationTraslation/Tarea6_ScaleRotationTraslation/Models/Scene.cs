@@ -46,7 +46,6 @@ namespace App.Estructura
             {
                 ModelMatrix *= objects.Get(e.Key).ModelMatrix;
             }
-                //objects.Get(e.Key).CalculateModelMatrix();
         }
 
         #region Position

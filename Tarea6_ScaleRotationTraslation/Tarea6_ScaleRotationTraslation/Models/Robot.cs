@@ -111,8 +111,9 @@ namespace App.Models
             }
         }
 
-        #region Scale
         public override void CalculateModelMatrix(){}
+
+        #region Scale
 
         public override void setScale(float scale1, bool plus)
         {
@@ -205,7 +206,6 @@ namespace App.Models
 
         public override void MoverAdelanteFrente(bool frente, bool adelante)
         {
-            //Console.Write("MoverAdelanteFrente sw:" + adelante.ToString()+"\n");
             if (frente)
             {
                 if (adelante)
@@ -223,7 +223,6 @@ namespace App.Models
 
         public override void MoverAdelanteIzquierda(bool izq, bool adelante)
         {
-            //Console.Write("MoverAdelanteIzquierda sw:" + adelante.ToString() + "\n");
             if (izq)
             {
                 if (adelante)

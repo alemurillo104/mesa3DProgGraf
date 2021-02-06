@@ -82,7 +82,6 @@ namespace Tarea6_ScaleRotationTraslation.Models.RobotPartes.Extremidades
             };
         }
 
-        //public override void setScale(float s) => Scale = new Vector3(s, s, s);
 
         public override void CalculateModelMatrix()
         {
