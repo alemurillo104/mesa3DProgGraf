@@ -5,28 +5,284 @@
 
     {
       "objeto": "robot",
-      "accion": "mover.x.-10",
-      "tiempo": 2000,
+      "accion": "rotar.y.90",
+      "tiempo": 4000,
       "partes": []
     },
     {
       "objeto": "robot",
-      "accion": "mover.x.10",
+      "accion": "mover.x.0,5",
+      "tiempo": 200,
+      "partes": [ "leftLegS", "leftLegI" ]
+
+    },
+    {
+      "objeto": "robot",
+      "accion": "mover.x.0,5",
+      "tiempo": 200,
+      "partes": [ "head", "body", "rightArmS", "rightArmI", "leftArmS", "leftArmI" ]
+    },
+
+    {
+      "objeto": "robot",
+      "accion": "mover.x.0,5",
+      "tiempo": 200,
+      "partes": [ "rightLegS", "rightLegI" ]
+
+    },
+
+    {
+      "objeto": "robot",
+      "accion": "mover.x.0,5",
+      "tiempo": 200,
+      "partes": [ "rightLegS", "rightLegI" ]
+
+    },
+    {
+      "objeto": "robot",
+      "accion": "mover.x.0,5",
+      "tiempo": 200,
+      "partes": [ "head", "body", "rightArmS", "rightArmI", "leftArmS", "leftArmI" ]
+    },
+    {
+      "objeto": "robot",
+      "accion": "mover.x.0,5",
+      "tiempo": 200,
+      "partes": [ "leftLegS", "leftLegI" ]
+
+    },
+
+    {
+      "objeto": "robot",
+      "accion": "mover.x.0,5",
+      "tiempo": 200,
+      "partes": [ "leftLegS", "leftLegI" ]
+
+    },
+    {
+      "objeto": "robot",
+      "accion": "mover.x.0,5",
+      "tiempo": 200,
+      "partes": [ "head", "body", "rightArmS", "rightArmI", "leftArmS", "leftArmI" ]
+    },
+
+    {
+      "objeto": "robot",
+      "accion": "mover.x.0,5",
+      "tiempo": 200,
+      "partes": [ "rightLegS", "rightLegI" ]
+
+    },
+    {
+      "objeto": "robot",
+      "accion": "mover.x.0,5",
+      "tiempo": 200,
+      "partes": [ "leftLegS", "leftLegI" ]
+
+    },
+    {
+      "objeto": "robot",
+      "accion": "mover.x.0,5",
+      "tiempo": 200,
+      "partes": [ "head", "body", "rightArmS", "rightArmI", "leftArmS", "leftArmI" ]
+    },
+
+    {
+      "objeto": "robot",
+      "accion": "mover.x.0,5",
+      "tiempo": 200,
+      "partes": [ "rightLegS", "rightLegI" ]
+
+    },
+
+
+    {
+      "objeto": "robot",
+      "accion": "rotar.y.-180",
+      "tiempo": 4000,
+      "partes": []
+    },
+
+
+    //retroceder
+
+    {
+      "objeto": "robot",
+      "accion": "mover.x.-0,5",
+      "tiempo": 200,
+      "partes": [ "leftLegS", "leftLegI" ]
+
+    },
+    {
+      "objeto": "robot",
+      "accion": "mover.x.-0,5",
+      "tiempo": 200,
+      "partes": [ "head", "body", "rightArmS", "rightArmI", "leftArmS", "leftArmI" ]
+    },
+
+    {
+      "objeto": "robot",
+      "accion": "mover.x.-0,5",
+      "tiempo": 200,
+      "partes": [ "rightLegS", "rightLegI" ]
+
+    },
+
+    {
+      "objeto": "robot",
+      "accion": "mover.x.-0,5",
+      "tiempo": 200,
+      "partes": [ "rightLegS", "rightLegI" ]
+
+    },
+    {
+      "objeto": "robot",
+      "accion": "mover.x.-0,5",
+      "tiempo": 200,
+      "partes": [ "head", "body", "rightArmS", "rightArmI", "leftArmS", "leftArmI" ]
+    },
+    {
+      "objeto": "robot",
+      "accion": "mover.x.-0,5",
+      "tiempo": 200,
+      "partes": [ "leftLegS", "leftLegI" ]
+
+    },
+
+    {
+      "objeto": "robot",
+      "accion": "mover.x.-0,5",
+      "tiempo": 200,
+      "partes": [ "leftLegS", "leftLegI" ]
+
+    },
+    {
+      "objeto": "robot",
+      "accion": "mover.x.-0,5",
+      "tiempo": 200,
+      "partes": [ "head", "body", "rightArmS", "rightArmI", "leftArmS", "leftArmI" ]
+    },
+
+    {
+      "objeto": "robot",
+      "accion": "mover.x.-0,5",
+      "tiempo": 200,
+      "partes": [ "rightLegS", "rightLegI" ]
+
+    },
+    {
+      "objeto": "robot",
+      "accion": "mover.x.-0,5",
+      "tiempo": 200,
+      "partes": [ "leftLegS", "leftLegI" ]
+
+    },
+    {
+      "objeto": "robot",
+      "accion": "mover.x.-0,5",
+      "tiempo": 200,
+      "partes": [ "head", "body", "rightArmS", "rightArmI", "leftArmS", "leftArmI" ]
+    },
+
+    {
+      "objeto": "robot",
+      "accion": "mover.x.-0,5",
+      "tiempo": 200,
+      "partes": [ "rightLegS", "rightLegI" ]
+
+    },
+
+
+    //rotar 90
+    {
+      "objeto": "robot",
+      "accion": "rotar.y.-90",
+      "tiempo": 4000,
+      "partes": []
+    },
+
+    //scene
+    {
+      "objeto": "scene",
+      "accion": "rotar.x.-90",
+      "tiempo": 4000,
+      "partes": []
+    },
+
+    //silla
+
+    {
+      "objeto": "silla",
+      "accion": "mover.z.-5",
       "tiempo": 2000,
       "partes": []
     },
 
     {
+      "objeto": "mesa",
+      "accion": "rotar.y.45",
+      "tiempo": 2000,
+      "partes": []
+    },
+
+    {
+      "objeto": "mesa",
+      "accion": "rotar.y.-45",
+      "tiempo": 2000,
+      "partes": []
+    },
+
+    {
+      "objeto": "silla",
+      "accion": "mover.z.5",
+      "tiempo": 2000,
+      "partes": []
+    },
+
+    {
+      "objeto": "scene",
+      "accion": "rotar.x.90",
+      "tiempo": 4000,
+      "partes": []
+    },
+
+
+    //robot front
+    {
       "objeto": "robot",
+      "accion": "rotar.y.-180",
+      "tiempo": 2000,
+      "partes": []
+    },
+
+
+    //scene
+    {
+      "objeto": "scene",
       "accion": "mover.x.-10",
       "tiempo": 2000,
       "partes": []
     },
+
+
     {
       "objeto": "robot",
+      "accion": "escalar.-2",
+      "tiempo": 500,
+      "partes": []
+    },
+    {
+      "objeto": "robot",
+      "accion": "escalar.1",
+      "tiempo": 500,
+      "partes": []
+    },
+    {
+      "objeto": "scene",
       "accion": "mover.x.10",
       "tiempo": 2000,
       "partes": []
     }
+
   ]
 }

@@ -54,8 +54,6 @@
     <Compile Include="Estructura\Parte.cs" />
     <Compile Include="Models\Acciones.cs" />
     <Compile Include="Models\Movimientos.cs" />
-    <Compile Include="Models\Personaje.cs" />
-    <Compile Include="Utils\Accions.cs" />
     <Compile Include="Models\RobotPartes\Extremidades\LArmI.cs" />
     <Compile Include="Models\RobotPartes\Extremidades\LArmS.cs" />
     <Compile Include="Models\RobotPartes\Extremidades\LLegI.cs" />
